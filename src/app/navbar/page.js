@@ -35,6 +35,10 @@ const Navbar = () => {
             <li>
               <Link href="/login">Login</Link>
             </li>
+
+            <li>
+              <Link href="/crud">Login</Link>
+            </li>
           </ul>
         </div>
         <Image
@@ -56,6 +60,9 @@ const Navbar = () => {
           <li>
             <Link href="/login">Login</Link>
           </li>
+          <li>
+              <Link href="/crud">Login</Link>
+            </li>
         </ul>
       </div>
       <div className="navbar-end">
