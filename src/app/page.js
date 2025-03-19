@@ -12,7 +12,7 @@ export default function Home() {
   
 
     return (
-        <div className="flex flex-col items-center min-h-screen mt-10 gap-8">
+        <div className="flex flex-col items-center min-h-screen mt-10 gap-8 p-10">
             <p>Task Management Application</p>
 
 

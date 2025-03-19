@@ -64,7 +64,7 @@ export default function Register() {
             </div>
 
 
-            <div class="relative my-4">
+            <div className="relative my-4">
        
         <input
                 type="url"
