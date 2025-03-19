@@ -1,55 +1,105 @@
-import Image from 'next/image';
-import Link from 'next/link';
+"use client";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+
+// Simulated auth state (replace with your actual auth implementation)
+const useAuth = () => {
+  const [user, setUser] = useState(null);
+  const signIn = () => setUser({ id: 1, name: "User" });
+  const signOut = () => setUser(null);
+
+  return { user, signIn, signOut };
+};
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { user, signOut } = useAuth();
+
   return (
-    <div className="navbar bg-gray-200 shadow-sm fixed top-0 w-full z-50 h-16"> {/* Fixed height */}
-      <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+    <nav className="fixed top-0 w-full bg-white shadow-md z-50">
+      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+        {/* Logo */}
+        <div className="flex items-center">
+          <Link href="/">
+            <Image
+              src="/images/1.jpeg"
+              alt="SchedulePro Logo"
+              width={40}
+              height={40}
+              className="rounded-full"
+            />
+          </Link>
+          <span className="ml-2 text-xl font-bold text-teal-500 hidden md:block">
+            SchedulePro
+          </span>
+        </div>
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex space-x-6">
+          <Link href="/" className="text-gray-900 hover:text-teal-500 transition-colors">
+            Home
+          </Link>
+          <Link href="/dashboard" className="text-gray-900 hover:text-teal-500 transition-colors">
+            Dashboard
+          </Link>
+
+          
+            <Link className="text-gray-900 hover:text-teal-500 transition-colors" href="/signin">Signup</Link>
+          
+          
+            <Link className="text-gray-900 hover:text-teal-500 transition-colors" href="/login">Login</Link>
+          
+          
+            <Link className="text-gray-900 hover:text-teal-500 transition-colors" href="/crud">CRUD</Link>
+          
+        </div>
+
+        {/* Mobile Menu Button */}
+        <div className="md:hidden">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="text-gray-900 focus:outline-none"
+          >
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
+              {isOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                />
+              )}
             </svg>
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <Link href="/">Home</Link>
-            </li>
-            <li>
-              <Link href="/signin">Signup</Link>
-            </li>
-            <li>
-              <Link href="/login">Login</Link>
-            </li>
-
-            <li>
-              <Link href="/crud">CRUD</Link>
-            </li>
-          </ul>
+          </button>
         </div>
-        <Image
-          src="/images/1.jpeg"
-          alt="Description of image"
-          width={70}
-          height={70}
-          className="rounded-full"
-        />
+
+        {/* CTA Button (Desktop) */}
+        <div className="hidden md:block">
+          <Link
+            href={user?.id ? "/signout" : "/signin"}
+            onClick={user?.id ? signOut : null}
+            className="bg-teal-500 text-white hover:bg-teal-600 font-semibold py-2 px-4 rounded-lg transition"
+          >
+            {user?.id ? "Logout" : "Get Started"}
+          </Link>
+        </div>
       </div>
-      <div className="navbar-center hidden lg:flex">
+
+      {/* Navbar Center for Desktop */}
+      {/* <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
             <Link href="/">Home</Link>
@@ -61,14 +111,33 @@ const Navbar = () => {
             <Link href="/login">Login</Link>
           </li>
           <li>
-              <Link href="/crud">CRUD</Link>
-            </li>
+            <Link href="/crud">CRUD</Link>
+          </li>
         </ul>
-      </div>
-      <div className="navbar-end">
-        <a className="btn">Button</a>
-      </div>
-    </div>
+      </div> */}
+
+      {/* Mobile Dropdown Menu */}
+      {isOpen && (
+        <div className="md:hidden bg-white shadow-md">
+          <ul className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow">
+            <li>
+              <Link href="/" onClick={() => setIsOpen(false)}>Home</Link>
+            </li>
+            <li>
+              <Link href="/signin" onClick={() => setIsOpen(false)}>Signup</Link>
+            </li>
+            <li>
+              <Link href="/login" onClick={() => setIsOpen(false)}>Login</Link>
+            </li>
+            <li>
+              <Link href="/crud" onClick={() => setIsOpen(false)}>CRUD</Link>
+            </li>
+          </ul>
+        </div>
+      )}
+
+      
+    </nav>
   );
 };
 
