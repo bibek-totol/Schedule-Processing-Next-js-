@@ -1,14 +1,18 @@
-import clientPromise from "../../../../lib/mongodb";
+
 import { NextResponse } from 'next/server'
+import clientPromise from '../../../../lib/mongodb';
 
 
 export async function GET() {
     try {
         const client = await clientPromise;
+      console.log("Database connected:", client !== undefined);
+
         const db = client.db("mydatabase");
         const collection = db.collection("all-tasks");
 
         const items = await collection.find({}).toArray();
+        console.log(items);
 
         return new Response(JSON.stringify({
             message: "Items Found and fetched successfully",
