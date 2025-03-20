@@ -4,15 +4,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Login() {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
+  // const [formData, setFormData] = useState({
+  //   email: '',
+  //   password: ''
+  // });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData(prev => ({ ...prev, [name]: value }));
+  // };
 
   return (
     <div className="flex-1 relative min-h-[calc(100vh-4rem)]"> 
@@ -38,8 +38,8 @@ export default function Login() {
                 type="email" // Changed to email type
                 name="email"
                 required
-                value={formData.email}
-                onChange={handleInputChange}
+                // value={formData.email}
+                // onChange={handleInputChange}
                 className="w-full h-10 bg-transparent border-b-2 border-gray-300 text-white outline-none peer"
               />
               <label className="absolute left-0 top-1/2 -translate-y-1/2 text-white pointer-events-none transition-all duration-150 ease-in-out peer-focus:-top-4 peer-focus:text-sm peer-valid:-top-4 peer-valid:text-sm">
