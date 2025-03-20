@@ -40,7 +40,7 @@ const Navbar = () => {
           <Link href="/" className="text-gray-900 hover:text-teal-500 transition-colors">
             Home
           </Link>
-          <Link href="/dashboard" className="text-gray-900 hover:text-teal-500 transition-colors">
+          <Link href="/panel" className="text-gray-900 hover:text-teal-500 transition-colors">
             Dashboard
           </Link>
 
@@ -59,7 +59,7 @@ const Navbar = () => {
         <div className="md:hidden">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-gray-900 focus:outline-none"
+            className="text-gray-900 focus:outline-none "
           >
             <svg
               className="h-6 w-6"
@@ -131,6 +131,12 @@ const Navbar = () => {
             </li>
             <li>
               <Link href="/crud" onClick={() => setIsOpen(false)}>CRUD</Link>
+            </li>
+            <li>
+            <Link href="/panel" className="text-gray-900 hover:text-teal-500 transition-colors">
+            Dashboard
+          </Link>
+              
             </li>
           </ul>
         </div>
