@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
+
 export default function Banner() {
   return (
     <section className="h-screen flex items-center justify-center bg-gradient-to-r from-teal-500 to-navy-800 text-black md:text-white">
