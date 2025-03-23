@@ -3,7 +3,7 @@ import "./globals.css";
 import Navbar from "./navbar/page";
 import Footer from "./footer/page";
 import { Providers } from "./providers";
-import NextAuthSessionProvider from "@/Providers/NextAuthSessionProvider";
+import NextAuthProvider from "@/Providers/NextAuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,17 +23,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      {/* <NextAuthSessionProvider> */}
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-      <Providers>
-      <Navbar/>
-        {children}
-        <Footer/>
+        <NextAuthProvider>
+        <Providers>
+          <Navbar />
+          {children}
+          <Footer />
         </Providers>
+        </NextAuthProvider> 
       </body>
-      {/* </NextAuthSessionProvider> */}
-    </html>
+    </html >
   );
 }

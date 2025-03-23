@@ -2,19 +2,10 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from "next/navigation";
 
 export default function Register() {
-  // const [formData, setFormData] = useState({
-  //   name: '',
-  //   email: '',
-  //   password: '',
-  //   photo: ''
-  // });
-
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData(prev => ({ ...prev, [name]: value }));
-  // };
+  const router = useRouter();
 
   const handleSubmit = async e => {
     e.preventDefault() ; 
@@ -24,7 +15,22 @@ export default function Register() {
     const username = form.get("name");
     const photoURL = form.get("photo")
     const password = form.get("password");
-    console.log(email, password, photoURL, username);
+    // console.log(email, password, photoURL, username);
+
+    const res = await fetch("/api/register", {
+      method: "POST",
+      body: JSON.stringify({ username, email, password, photoURL })
+    });
+    
+    // console.log(res);
+    
+    if (res.ok) {
+      router.push("/");
+      alert ("Done") ; 
+
+    } else {
+      alert("Registration failed");
+    }
 
   }
 
