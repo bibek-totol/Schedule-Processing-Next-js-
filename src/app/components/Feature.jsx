@@ -40,19 +40,20 @@ export default function Feature() {
               direction="up"
               delay={index * 100} // Staggered effect
               triggerOnce // Animate only once
-              className="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg hover:-translate-y-2 transition-all duration-300"
             >
-              <div className="w-12 h-12 mx-auto mb-4 bg-teal-100 rounded-full flex items-center justify-center">
-                <Image
-                  src={feature.icon}
-                  width={32}
-                  height={32}
-                  alt={feature.title}
-                  className="object-contain"
-                />
+              <div className="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg hover:-translate-y-2 transition-all duration-300">
+                <div className="w-12 h-12 mx-auto mb-4 bg-teal-100 rounded-full flex items-center justify-center">
+                  <Image
+                    src={feature.icon}
+                    width={32}
+                    height={32}
+                    alt={feature.title}
+                    className="object-contain"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                <p className="text-gray-600">{feature.desc}</p>
               </div>
-              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-              <p className="text-gray-600">{feature.desc}</p>
             </Fade>
           ))}
         </div>

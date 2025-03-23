@@ -1,20 +1,38 @@
-"use client"; // Add this since we're using React hooks
+"use client"; 
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from "next/navigation";
 
 export default function Register() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    photo: ''
-  });
+  const router = useRouter();
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  const handleSubmit = async e => {
+    e.preventDefault() ; 
+
+    const form = new FormData(e.target) ; 
+    const email = form.get("email");
+    const username = form.get("name");
+    const photoURL = form.get("photo")
+    const password = form.get("password");
+    // console.log(email, password, photoURL, username);
+
+    const res = await fetch("/api/register", {
+      method: "POST",
+      body: JSON.stringify({ username, email, password, photoURL })
+    });
+    
+    // console.log(res);
+    
+    if (res.ok) {
+      router.push("/");
+      alert ("Done") ; 
+
+    } else {
+      alert("Registration failed");
+    }
+
+  }
 
   return (
     <div className="flex-1 relative min-h-[calc(100vh-4rem)]"> 
@@ -31,7 +49,7 @@ export default function Register() {
       {/* Form Container */}
       <div className="absolute inset-0 flex items-center justify-center z-10">
         <div className="w-[400px] rounded-lg p-8 text-center border border-white/50 backdrop-blur-md">
-          <form className="flex flex-col">
+          <form onSubmit={handleSubmit} className="flex flex-col">
             <h2 className="text-2xl text-white mb-5">Register</h2>
 
             {/* Name Input */}
@@ -40,8 +58,8 @@ export default function Register() {
                 type="text"
                 name="name"
                 required
-                value={formData.name}
-                onChange={handleInputChange}
+                // value={formData.name}
+                // onChange={handleInputChange}
                 className="w-full h-10 bg-transparent border-b-2 border-gray-300 text-white outline-none peer"
               />
               <label className="absolute left-0 top-1/2 -translate-y-1/2 text-white pointer-events-none transition-all duration-150 ease-in-out peer-focus:-top-4 peer-focus:text-sm peer-valid:-top-4 peer-valid:text-sm">
@@ -55,8 +73,8 @@ export default function Register() {
                 type="email" // Changed to email type for better validation
                 name="email"
                 required
-                value={formData.email}
-                onChange={handleInputChange}
+                // value={formData.email}
+                // onChange={handleInputChange}
                 className="w-full h-10 bg-transparent border-b-2 border-gray-300 text-white outline-none peer"
               />
               <label className="absolute left-0 top-1/2 -translate-y-1/2 text-white pointer-events-none transition-all duration-150 ease-in-out peer-focus:-top-4 peer-focus:text-sm peer-valid:-top-4 peer-valid:text-sm">
@@ -70,8 +88,8 @@ export default function Register() {
                 type="password"
                 name="password"
                 required
-                value={formData.password}
-                onChange={handleInputChange}
+                // value={formData.password}
+                // onChange={handleInputChange}
                 className="w-full h-10 bg-transparent border-b-2 border-gray-300 text-white outline-none peer"
               />
               <label className="absolute left-0 top-1/2 -translate-y-1/2 text-white pointer-events-none transition-all duration-150 ease-in-out peer-focus:-top-4 peer-focus:text-sm peer-valid:-top-4 peer-valid:text-sm">
@@ -80,18 +98,18 @@ export default function Register() {
             </div>
 
 
-            <div class="relative my-4">
+            <div className="relative my-4">
        
         <input
                 type="url"
                 name="photo"
                 required
-                value={formData.photo}
-                onChange={handleInputChange}
+                // value={formData.photo}
+                // onChange={handleInputChange}
                 className="w-full h-10 bg-transparent border-b-2 border-gray-300 text-white outline-none peer"
               />
               <label className="absolute left-0 top-1/2 -translate-y-1/2 text-white pointer-events-none transition-all duration-150 ease-in-out peer-focus:-top-4 peer-focus:text-sm peer-valid:-top-4 peer-valid:text-sm">
-                Enter your image
+                Enter your image url
               </label>
             </div>
 

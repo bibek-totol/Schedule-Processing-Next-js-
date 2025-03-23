@@ -1,20 +1,23 @@
 "use client";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
 // Simulated auth state (replace with your actual auth implementation)
-const useAuth = () => {
-  const [user, setUser] = useState(null);
-  const signIn = () => setUser({ id: 1, name: "User" });
-  const signOut = () => setUser(null);
+// const useAuth = () => {
+//   const [user, setUser] = useState(null);
+//   const signIn = () => setUser({ id: 1, name: "User" });
+//   const signOut = () => setUser(null);
 
-  return { user, signIn, signOut };
-};
+//   return { user, signIn, signOut };
+// };
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, signOut } = useAuth();
+  const { data: session } = useSession();
+  console.log(session?.user);
+  console.log(session?.user?.image);
 
   return (
     <nav className="fixed top-0 w-full bg-white shadow-md z-50">
@@ -40,26 +43,32 @@ const Navbar = () => {
           <Link href="/" className="text-gray-900 hover:text-teal-500 transition-colors">
             Home
           </Link>
-          <Link href="/dashboard" className="text-gray-900 hover:text-teal-500 transition-colors">
+          <Link href="/panel" className="text-gray-900 hover:text-teal-500 transition-colors">
             Dashboard
           </Link>
 
-          
-            <Link className="text-gray-900 hover:text-teal-500 transition-colors" href="/signin">Signup</Link>
-          
-          
-            <Link className="text-gray-900 hover:text-teal-500 transition-colors" href="/login">Login</Link>
-          
-          
-            <Link className="text-gray-900 hover:text-teal-500 transition-colors" href="/crud">CRUD</Link>
-          
+          <Link className="text-gray-900 hover:text-teal-500 transition-colors" href="/crud">CRUD</Link>
+
+          {
+            session?.user ?
+
+            <Link  onClick={() => signOut({ callbackUrl: '/' })}
+            className="text-gray-900 hover:text-teal-500 transition-colors" href="#">Logout</Link>
+              :
+
+              <>
+                <Link className="text-gray-900 hover:text-teal-500 transition-colors" href="/signin">Signup</Link>
+
+                <Link className="text-gray-900 hover:text-teal-500 transition-colors" href="/login">Login</Link></>
+          }
+
         </div>
 
         {/* Mobile Menu Button */}
         <div className="md:hidden">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-gray-900 focus:outline-none"
+            className="text-gray-900 focus:outline-none "
           >
             <svg
               className="h-6 w-6"
@@ -88,15 +97,19 @@ const Navbar = () => {
 
         {/* CTA Button (Desktop) */}
         <div className="hidden md:block">
-          <Link
-            href={user?.id ? "/signout" : "/signin"}
-            onClick={user?.id ? signOut : null}
+          {/* <Link
+            href={session?.user?.image}
+            // onClick={}
             className="bg-teal-500 text-white hover:bg-teal-600 font-semibold py-2 px-4 rounded-lg transition"
           >
-            {user?.id ? "Logout" : "Get Started"}
-          </Link>
+            {session?.user? "Logout" : "Get Started"}
+          </Link> */}
         </div>
       </div>
+
+
+
+
 
       {/* Navbar Center for Desktop */}
       {/* <div className="navbar-center hidden lg:flex">
@@ -132,11 +145,17 @@ const Navbar = () => {
             <li>
               <Link href="/crud" onClick={() => setIsOpen(false)}>CRUD</Link>
             </li>
+            <li>
+            <Link href="/panel" className="text-gray-900 hover:text-teal-500 transition-colors">
+            Dashboard
+          </Link>
+              
+            </li>
           </ul>
         </div>
       )}
 
-      
+
     </nav>
   );
 };

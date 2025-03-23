@@ -1,4 +1,3 @@
-
 import { NextResponse } from 'next/server'
 import clientPromise from '../../../../lib/mongodb';
 
@@ -35,6 +34,8 @@ export async function POST(req) {
         const client = await clientPromise;
         const db = client.db("mydatabase");
         const collection = db.collection("all-tasks");
+        
+
       
 
         const { task } = await req.json();
