@@ -14,7 +14,7 @@ export async function GET() {
         console.log(items);
 
         return new Response(JSON.stringify({
-            message: "Items Found and fetched successfully",
+            message: "Task Found and fetched successfully",
             tasks: items,
         }), {
             status: 200,
@@ -22,7 +22,7 @@ export async function GET() {
         });
     } catch (error) {
         console.error("Error fetching tasks:", error);
-        return new Response(JSON.stringify({ error: "Error fetching items" }), {
+        return new Response(JSON.stringify({ error: "Error fetching tasks" }), {
             status: 500,
             headers: { "Content-Type": "application/json" }
         });
@@ -38,18 +38,18 @@ export async function POST(req) {
 
       
 
-        const { task } = await req.json();
+     const {name, task, date, time, priority} = await req.json();
         if (!task) {
             
             return NextResponse.json({ error: 'Task is required' }, { status: 500 })
         }
 
-        const newItem = await collection.insertOne({ task });
+        const newItem = await collection.insertOne({ name, task, date, time, priority });
 
-        return NextResponse.json({  message: "Item added successfully" }, { status: 201 })
+        return NextResponse.json({  message: "Task added successfully" }, { status: 201 })
     } catch (error) {
         console.error("Error adding task:", error);
 
-        return NextResponse.json({ error: 'Error adding item' }, { status: 500 })
+        return NextResponse.json({ error: 'Error adding task' }, { status: 500 })
     }
 }

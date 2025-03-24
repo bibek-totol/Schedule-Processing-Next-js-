@@ -6,6 +6,7 @@ import NextAuthProvider from "@/Providers/NextAuthProvider";
 import Navbar from "./navbar/page";
 import Footer from "./footer/page";
 import { Prov } from "./prov";
+import AuthProvider from "./AuthProviders/AuthProvider";
 // import { Cakra } from "./cakra";
 
 
@@ -36,7 +37,7 @@ export default function RootLayout({ children }) {
           
 
         
-      
+          <AuthProvider> 
         <NextAuthProvider>
         <Prov>
         {/* <Cakra> */}
@@ -50,6 +51,7 @@ export default function RootLayout({ children }) {
       
           </Prov>
           </NextAuthProvider>
+          </AuthProvider>
        
       
       
