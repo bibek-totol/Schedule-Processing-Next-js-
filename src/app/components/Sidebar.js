@@ -1,16 +1,20 @@
 import React from "react";
 
+
 const Sidebar = ({ isSidebarOpen }) => {
   return (
     <div
       className={`fixed h-screen w-64 bg-blue-900 text-white transition-all duration-300 ${
-        isSidebarOpen ? "w-20" : "w-64"
+        isSidebarOpen ? "w-20 hidden" : "w-64 block "
       }`}
     >
       <div className="p-6">
         <div className="flex items-center space-x-2">
-          <ion-icon name="logo-apple" className="text-2xl"></ion-icon>
+        
+        
+  
           {!isSidebarOpen && <span className="text-xl font-bold">Brand Name</span>}
+
         </div>
       </div>
 

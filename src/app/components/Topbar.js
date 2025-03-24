@@ -1,10 +1,11 @@
 import React from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const Topbar = ({ toggleSidebar }) => {
   return (
     <div className="bg-white p-4 shadow-md flex justify-between items-center">
       <button onClick={toggleSidebar} className="text-2xl focus:outline-none">
-        <ion-icon name="menu-outline"></ion-icon>
+      <GiHamburgerMenu />
       </button>
 
       <div className="flex items-center space-x-4">
