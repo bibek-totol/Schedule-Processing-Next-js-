@@ -36,10 +36,10 @@ export default function RootLayout({ children }) {
 
           
 
-        
+          <Prov>
           <AuthProvider> 
         <NextAuthProvider>
-        <Prov>
+      
         {/* <Cakra> */}
     
           {/* <Navbar /> */}
@@ -49,9 +49,10 @@ export default function RootLayout({ children }) {
           {/* <Footer /> */}
           {/* </Cakra> */}
       
-          </Prov>
+         
           </NextAuthProvider>
           </AuthProvider>
+          </Prov>
        
       
       

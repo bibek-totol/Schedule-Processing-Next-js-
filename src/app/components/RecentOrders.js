@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
+import React, { useContext } from "react";
+import { ContextProvider } from "../AuthProviders/AuthProvider";
 
 const RecentOrders = () => {
     const { data: tasks=[], isLoading, error,refetch } = useQuery({
@@ -11,6 +12,10 @@ const RecentOrders = () => {
           return res.data.tasks;
       },
   });
+
+
+  
+  const {editTask,deleteTask} = useContext(ContextProvider);
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg">
@@ -30,6 +35,7 @@ const RecentOrders = () => {
             <th className="text-left py-2 ">Date</th>
             <th className="text-left py-2">Time</th>
             <th className="text-left py-2">Priority</th>
+            <th className="text-left py-2">Status</th>
           </tr>
         </thead>
         <tbody>
@@ -40,6 +46,14 @@ const RecentOrders = () => {
               <td className="py-2">{task.date}</td>
               <td className="py-2">{task.time}</td>
               <td className="py-2">{task.priority}</td>
+              <td className="py-2">
+              <div className="flex gap-2">
+              <button className="btn btn-success" onClick={() => editTask(task)}>Edit</button>
+      <button className="btn btn-error" onClick={() => deleteTask(task._id)}>Delete</button>
+      </div>
+              </td>
+         
+
               {/* <td className="py-2">
                 <span
                   className={`px-2 py-1 rounded-full text-sm ${

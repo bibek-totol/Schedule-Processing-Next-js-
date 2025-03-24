@@ -48,23 +48,27 @@ export async function PATCH(req,{params}){
             return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
         }
 
-        const { task } = await req.json();
-        if (!task) {
+        const { name, task, date, time, priority} = await req.json();
+        if (!task || !date || !time || !priority || !name) {
             return NextResponse.json({ error: "Task is required" }, { status: 400 });
         }
 
         const query = { _id: new ObjectId(id) };
 
         const updatedItem = await collection.updateOne(query, { $set: { 
-            task: task
+            name,
+            task,
+            date,
+            time,
+            priority
          } });
 
 
         if (updatedItem.modifiedCount === 0) {
-            return NextResponse.json({ error: "Item not updated and found" }, { status: 404 });
+            return NextResponse.json({ error: "Task not updated and found" }, { status: 404 });
         }
 
-        return NextResponse.json({ message: "Item updated successfully" }, { status: 200 });
+        return NextResponse.json({ message: "Task updated successfully" }, { status: 200 });
 
     }catch (error) {
         console.error("Error editing task:", error);
