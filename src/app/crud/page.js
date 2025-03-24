@@ -1,45 +1,28 @@
 'use client'
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useContext } from "react";
 import Swal from 'sweetalert2';
+import { ContextProvider } from "../AuthProviders/AuthProvider";
 
 
 export default function CRUD() {
+  const {addTask} = useContext(ContextProvider);
    
 
 
-    const { data: items=[], isLoading, error,refetch } = useQuery({
-      queryKey: ["items"],
-      queryFn: async () => {
-          const res = await axios.get('/api/addtask');
-          return res.data.tasks;
-      },
-  });
+  //   const { data: items=[], isLoading, error,refetch } = useQuery({
+  //     queryKey: ["items"],
+  //     queryFn: async () => {
+  //         const res = await axios.get('/api/addtask');
+  //         return res.data.tasks;
+  //     },
+  // });
 
   
 
     
-    const addTask = async (e) => {
-        e.preventDefault();
-        const task = e.target.task.value;
-
-        if (!task) {
-            alert("Task cannot be empty!");
-            return;
-        }
-
-        try {
-            const result = await axios.post('/api/addtask', { task });
-            console.log(result.status);
-            refetch();
-            alert(result.data.message);
-            
-            e.target.reset(); 
-        } catch (err) {
-            console.error("Error adding task:", err);
-        }
-    };
-
+  
 
 
     const deleteTask = async (id) => {
@@ -159,7 +142,7 @@ export default function CRUD() {
         </h1>
 
         {/* Form */}
-        <form>
+        <form onSubmit={addTask}>
           {/* User Details */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 mb-6">
             {/* Full Name */}
@@ -195,7 +178,7 @@ export default function CRUD() {
                 placeholder="Enter your date"
                 className="p-2 border border-gray-300 rounded focus:outline-none focus:border-[#9b59b6] transition-colors"
                 required
-                name="time"
+                name="date"
               />
             </div>
 
@@ -223,6 +206,7 @@ export default function CRUD() {
                   type="radio"
                   name="priority"
                   className="form-radio h-4 w-4 text-[#9b59b6] focus:ring-[#9b59b6]"
+                  value={"High"}
                 />
                 <span>High</span>
               </label>
@@ -233,6 +217,7 @@ export default function CRUD() {
                   type="radio"
                   name="priority"
                   className="form-radio h-4 w-4 text-[#9b59b6] focus:ring-[#9b59b6]"
+                  value={"Medium"}
                 />
                 <span>Medium</span>
               </label>
@@ -243,6 +228,7 @@ export default function CRUD() {
                   type="radio"
                   name="priority"
                   className="form-radio h-4 w-4 text-[#9b59b6] focus:ring-[#9b59b6]"
+                  value={"Low"}
                 />
                 <span>Low</span>
               </label>
