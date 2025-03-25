@@ -2,7 +2,7 @@
 
 
 "use client"
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 import Card from "../components/Card";
@@ -10,6 +10,7 @@ import RecentOrders from "../components/RecentOrders";
 import RecentCustomers from "../components/RecentCustomers";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+
 
 
 
@@ -39,6 +40,8 @@ const Panel = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+
+
   return (
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
@@ -62,7 +65,7 @@ const Panel = () => {
         </div>
 
         {/* Recent Orders and Customers */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 p-6">
           <RecentOrders />
           <RecentCustomers />
         </div>
