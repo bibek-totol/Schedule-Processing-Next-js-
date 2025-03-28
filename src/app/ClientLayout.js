@@ -9,20 +9,23 @@ export default function ClientLayout({ children }) {
 
   
   const hideNavbarFooterRoutes = ["/panel"];
+  const hideFooterRoutes = ["/ai-assistant"];
+  
 
   
   const hideNavbarFooter = hideNavbarFooterRoutes.includes(pathname);
+  const hideFooter = hideFooterRoutes.includes(pathname);
 
   return (
     <>
     
-      {!hideNavbarFooter && <Navbar />}
+      {(!hideNavbarFooter || hideFooter) && <Navbar />}
 
 
       {children}
 
       
-      {!hideNavbarFooter && <Footer />}
+      {(!hideNavbarFooter && !hideFooter )&& <Footer />}
     </>
   );
 }
