@@ -47,6 +47,11 @@ const Navbar = () => {
             Dashboard
           </Link>
 
+          <Link href="/ai-assistant" className="text-gray-900 hover:text-teal-500 transition-colors">
+          AI-Assistant
+          </Link>
+        
+
           <Link className="text-gray-900 hover:text-teal-500 transition-colors" href="/crud">CRUD</Link>
 
           {
