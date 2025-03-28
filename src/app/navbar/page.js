@@ -40,28 +40,51 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6">
-          <Link href="/" className="text-gray-900 hover:text-teal-500 transition-colors">
+          <Link
+            href="/"
+            className="text-gray-900 hover:text-teal-500 transition-colors"
+          >
             Home
           </Link>
-          <Link href="/panel" className="text-gray-900 hover:text-teal-500 transition-colors">
+          <Link
+            href="/panel"
+            className="text-gray-900 hover:text-teal-500 transition-colors"
+          >
             Dashboard
           </Link>
 
-          <Link className="text-gray-900 hover:text-teal-500 transition-colors" href="/crud">CRUD</Link>
+          <Link
+            className="text-gray-900 hover:text-teal-500 transition-colors"
+            href="/crud"
+          >
+            CRUD
+          </Link>
 
-          {
-            session?.user ?
+          {session?.user ? (
+            <Link
+              onClick={() => signOut({ callbackUrl: "/" })}
+              className="text-gray-900 hover:text-teal-500 transition-colors"
+              href="#"
+            >
+              Logout
+            </Link>
+          ) : (
+            <>
+              <Link
+                className="text-gray-900 hover:text-teal-500 transition-colors"
+                href="/signin"
+              >
+                Signup
+              </Link>
 
-            <Link  onClick={() => signOut({ callbackUrl: '/' })}
-            className="text-gray-900 hover:text-teal-500 transition-colors" href="#">Logout</Link>
-              :
-
-              <>
-                <Link className="text-gray-900 hover:text-teal-500 transition-colors" href="/signin">Signup</Link>
-
-                <Link className="text-gray-900 hover:text-teal-500 transition-colors" href="/login">Login</Link></>
-          }
-
+              <Link
+                className="text-gray-900 hover:text-teal-500 transition-colors"
+                href="/login"
+              >
+                Login
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -107,10 +130,6 @@ const Navbar = () => {
         </div>
       </div>
 
-
-
-
-
       {/* Navbar Center for Desktop */}
       {/* <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
@@ -134,28 +153,36 @@ const Navbar = () => {
         <div className="md:hidden bg-white shadow-md">
           <ul className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow">
             <li>
-              <Link href="/" onClick={() => setIsOpen(false)}>Home</Link>
+              <Link href="/" onClick={() => setIsOpen(false)}>
+                Home
+              </Link>
             </li>
             <li>
-              <Link href="/signin" onClick={() => setIsOpen(false)}>Signup</Link>
+              <Link href="/signin" onClick={() => setIsOpen(false)}>
+                Signup
+              </Link>
             </li>
             <li>
-              <Link href="/login" onClick={() => setIsOpen(false)}>Login</Link>
+              <Link href="/login" onClick={() => setIsOpen(false)}>
+                Login
+              </Link>
             </li>
             <li>
-              <Link href="/crud" onClick={() => setIsOpen(false)}>CRUD</Link>
+              <Link href="/crud" onClick={() => setIsOpen(false)}>
+                CRUD
+              </Link>
             </li>
             <li>
-            <Link href="/panel" className="text-gray-900 hover:text-teal-500 transition-colors">
-            Dashboard
-          </Link>
-              
+              <Link
+                href="/panel"
+                className="text-gray-900 hover:text-teal-500 transition-colors"
+              >
+                Dashboard
+              </Link>
             </li>
           </ul>
         </div>
       )}
-
-
     </nav>
   );
 };

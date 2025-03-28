@@ -1,41 +1,39 @@
-"use client"; 
-import React, { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+"use client";
+import React, { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function Register() {
   const router = useRouter();
 
-  const handleSubmit = async e => {
-    e.preventDefault() ; 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const form = new FormData(e.target) ; 
+    const form = new FormData(e.target);
     const email = form.get("email");
     const username = form.get("name");
-    const photoURL = form.get("photo")
+    const photoURL = form.get("photo");
     const password = form.get("password");
     // console.log(email, password, photoURL, username);
 
     const res = await fetch("/api/register", {
       method: "POST",
-      body: JSON.stringify({ username, email, password, photoURL })
+      body: JSON.stringify({ username, email, password, photoURL }),
     });
-    
+
     // console.log(res);
-    
+
     if (res.ok) {
       router.push("/");
-      alert ("Done") ; 
-
+      alert("Done");
     } else {
       alert("Registration failed");
     }
-
-  }
+  };
 
   return (
-    <div className="flex-1 relative min-h-[calc(100vh-4rem)]"> 
+    <div className="flex-1 relative min-h-[calc(100vh-4rem)]">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
@@ -97,10 +95,8 @@ export default function Register() {
               </label>
             </div>
 
-
             <div className="relative my-4">
-       
-        <input
+              <input
                 type="url"
                 name="photo"
                 required
@@ -120,7 +116,7 @@ export default function Register() {
 
             {/* Login Link */}
             <p className="text-white text-sm">
-              Already have an account?{' '}
+              Already have an account?{" "}
               <Link href="/login" className="text-teal-300 hover:text-teal-400">
                 Login
               </Link>
