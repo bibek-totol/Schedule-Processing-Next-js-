@@ -94,7 +94,9 @@ export default function Login() {
 
             {/* Submit Button */}
             <button
+              type='submit'
               className="btn btn-outline btn-success mb-4">
+
               Login
             </button>
 

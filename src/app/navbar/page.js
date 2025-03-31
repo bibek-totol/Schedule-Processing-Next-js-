@@ -4,18 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-// Simulated auth state (replace with your actual auth implementation)
-// const useAuth = () => {
-//   const [user, setUser] = useState(null);
-//   const signIn = () => setUser({ id: 1, name: "User" });
-//   const signOut = () => setUser(null);
 
-//   return { user, signIn, signOut };
-// };
-
-const Navbar = () => {
+const Navbar =  () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: session } = useSession();
+
+
+  console.log(session);
+
   console.log(session?.user);
   console.log(session?.user?.image);
 
@@ -40,10 +36,16 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6">
-          <Link href="/" className="text-gray-900 hover:text-teal-500 transition-colors">
+          <Link
+            href="/"
+            className="text-gray-900 hover:text-teal-500 transition-colors"
+          >
             Home
           </Link>
-          <Link href="/panel" className="text-gray-900 hover:text-teal-500 transition-colors">
+          <Link
+            href="/panel"
+            className="text-gray-900 hover:text-teal-500 transition-colors"
+          >
             Dashboard
           </Link>
 
@@ -52,22 +54,58 @@ const Navbar = () => {
           </Link>
         
 
-          <Link className="text-gray-900 hover:text-teal-500 transition-colors" href="/crud">CRUD</Link>
+        
+          <Link
+            className="text-gray-900 hover:text-teal-500 transition-colors"
+            href="/crud"
+          >
+            CRUD
+          </Link>
 
-          {
-            session?.user ?
+          {session?.user ? (
+            <Link
+              onClick={() => signOut({ callbackUrl: "/" })}
+              className="text-gray-900 hover:text-teal-500 transition-colors"
+              href="#"
+            >
+              Logout
+            </Link>
+            
+          ) : (
+            <>
+              <Link
+                className="text-gray-900 hover:text-teal-500 transition-colors"
+                href="/signin"
+              >
+                Signup
+              </Link>
 
-            <Link  onClick={() => signOut({ callbackUrl: '/' })}
-            className="text-gray-900 hover:text-teal-500 transition-colors" href="#">Logout</Link>
-              :
+              <Link
+                className="text-gray-900 hover:text-teal-500 transition-colors"
+                href="/login"
+              >
+                Login
+              </Link>
+            </>
+          )}
 
-              <>
-                <Link className="text-gray-900 hover:text-teal-500 transition-colors" href="/signin">Signup</Link>
+          
+        </div>
 
-                <Link className="text-gray-900 hover:text-teal-500 transition-colors" href="/login">Login</Link></>
-          }
+        <div className="flex items-end"> 
+        <div className="">
+          <img
+            className="rounded-full w-10 h-10"
+            src={session?.user?.image} />
+        </div>
+
+        <div>
+          <h4 className="font-semibold">{session?.user?.name}</h4>
+        </div>
 
         </div>
+
+       
 
         {/* Mobile Menu Button */}
         <div className="md:hidden">
@@ -112,10 +150,6 @@ const Navbar = () => {
         </div>
       </div>
 
-
-
-
-
       {/* Navbar Center for Desktop */}
       {/* <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
@@ -139,28 +173,44 @@ const Navbar = () => {
         <div className="md:hidden bg-white shadow-md">
           <ul className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow">
             <li>
-              <Link href="/" onClick={() => setIsOpen(false)}>Home</Link>
+              <Link href="/" onClick={() => setIsOpen(false)}>
+                Home
+              </Link>
             </li>
             <li>
-              <Link href="/signin" onClick={() => setIsOpen(false)}>Signup</Link>
+              <Link href="/signin" onClick={() => setIsOpen(false)}>
+                Signup
+              </Link>
             </li>
             <li>
-              <Link href="/login" onClick={() => setIsOpen(false)}>Login</Link>
+              <Link href="/login" onClick={() => setIsOpen(false)}>
+                Login
+              </Link>
             </li>
             <li>
-              <Link href="/crud" onClick={() => setIsOpen(false)}>CRUD</Link>
+              <Link href="/crud" onClick={() => setIsOpen(false)}>
+                CRUD
+              </Link>
             </li>
             <li>
-            <Link href="/panel" className="text-gray-900 hover:text-teal-500 transition-colors">
-            Dashboard
-          </Link>
-              
+              <Link
+                href="/panel"
+                className="text-gray-900 hover:text-teal-500 transition-colors"
+              >
+                Dashboard
+              </Link>
             </li>
           </ul>
+
+
+          
         </div>
+
+        
       )}
 
 
+     
     </nav>
   );
 };

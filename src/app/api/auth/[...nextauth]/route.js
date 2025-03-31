@@ -3,6 +3,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import clientPromise from "../../../../../lib/mongodb";
+import GoogleProvider from "next-auth/providers/google";
 
 
 const handler = NextAuth({
@@ -28,10 +29,20 @@ const handler = NextAuth({
         }
 
         return {
+          id: user._id.toString(),
           name: user.username,
+          email: user.email,
           role: user.role,
+          image: user.photoURL,
         };
       },
+    }),
+
+
+
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
 
    
@@ -40,16 +51,22 @@ const handler = NextAuth({
     async session({ session, token }) {
       if (token) {
         if (token) {
+          session.user.id = token.id;
           session.user.name = token.name;
+          session.user.email = token.email;
           session.user.role = token.role;
+          session.user.image = token.image;
         }
       }
       return session;
     },
     async jwt({ token, user }) {
       if (user) {
+        token.id = user.id;
         token.name = user.name;
+        token.email = user.email;
         token.role = user.role;
+        token.image = user.image;
       }
       return token;
     },
