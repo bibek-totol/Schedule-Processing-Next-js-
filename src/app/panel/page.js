@@ -10,6 +10,7 @@ import RecentOrders from "../components/RecentOrders";
 import RecentCustomers from "../components/RecentCustomers";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import RecentGraph from "../components/RecentGraph";
 
 
 
@@ -67,7 +68,10 @@ const Panel = () => {
         {/* Recent Orders and Customers */}
         <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 p-6">
           <RecentOrders />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
           <RecentCustomers />
+          <RecentGraph/>
+          </div>
         </div>
       </div>
     </div>
