@@ -62,6 +62,19 @@ const Navbar =  () => {
             CRUD
           </Link>
 
+
+          <Link
+            className="text-gray-900 hover:text-teal-500 transition-colors"
+            href="/calendar-ev"
+          >
+            Events
+          </Link>
+
+          
+
+
+          
+
           {session?.user ? (
             <Link
               onClick={() => signOut({ callbackUrl: "/" })}
@@ -138,36 +151,10 @@ const Navbar =  () => {
           </button>
         </div>
 
-        {/* CTA Button (Desktop) */}
-        <div className="hidden md:block">
-          {/* <Link
-            href={session?.user?.image}
-            // onClick={}
-            className="bg-teal-500 text-white hover:bg-teal-600 font-semibold py-2 px-4 rounded-lg transition"
-          >
-            {session?.user? "Logout" : "Get Started"}
-          </Link> */}
-        </div>
+       
       </div>
 
-      {/* Navbar Center for Desktop */}
-      {/* <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <Link href="/">Home</Link>
-          </li>
-          <li>
-            <Link href="/signin">Signup</Link>
-          </li>
-          <li>
-            <Link href="/login">Login</Link>
-          </li>
-          <li>
-            <Link href="/crud">CRUD</Link>
-          </li>
-        </ul>
-      </div> */}
-
+     
       {/* Mobile Dropdown Menu */}
       {isOpen && (
         <div className="md:hidden bg-white shadow-md">

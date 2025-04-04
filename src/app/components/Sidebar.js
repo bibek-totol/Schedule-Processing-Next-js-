@@ -1,43 +1,74 @@
+import { signOut } from "next-auth/react";
 import React from "react";
-
+import { 
+  FiHome, 
+  FiUsers, 
+  FiMessageSquare, 
+  FiHelpCircle, 
+  FiSettings, 
+  FiLock 
+} from "react-icons/fi";
+import { VscSignOut } from "react-icons/vsc";
+import Swal from "sweetalert2";
 
 const Sidebar = ({ isSidebarOpen }) => {
+
+
+
+  const handleSignOut = () => {
+    signOut({ callbackUrl: "/" })
+    Swal.fire(
+      {
+        icon: "success",
+        title: "Success",
+        text: "You have signed out successfully",
+        showConfirmButton: false,
+
+      }
+    )
+  };
+
   return (
     <div
       className={`fixed h-screen w-64 bg-blue-900 text-white transition-all duration-300 ${
-        isSidebarOpen ? "w-20 hidden" : "w-64 block "
+        isSidebarOpen ? "w-20" : "w-64"
       }`}
     >
       <div className="p-6">
         <div className="flex items-center space-x-2">
-        
-        
-  
           {!isSidebarOpen && <span className="text-xl font-bold">Brand Name</span>}
-
         </div>
       </div>
 
       <ul className="mt-6">
         {[
-          { icon: "home-outline", title: "Dashboard" },
-          { icon: "people-outline", title: "Customers" },
-          { icon: "chatbubble-outline", title: "Messages" },
-          { icon: "help-outline", title: "Help" },
-          { icon: "settings-outline", title: "Settings" },
-          { icon: "lock-closed-outline", title: "Password" },
-          { icon: "log-out-outline", title: "Sign Out" },
+          { icon: <FiHome className="text-xl" />, title: "Dashboard" },
+          { icon: <FiUsers className="text-xl" />, title: "Customers" },
+          { icon: <FiMessageSquare className="text-xl" />, title: "Messages" },
+          { icon: <FiHelpCircle className="text-xl" />, title: "Help" },
+          { icon: <FiSettings className="text-xl" />, title: "Settings" },
+          { icon: <FiLock className="text-xl" />, title: "Password" },
         ].map((item, index) => (
           <li
             key={index}
             className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200"
           >
             <a href="#" className="flex items-center p-4 space-x-2">
-              <ion-icon name={item.icon} className="text-xl"></ion-icon>
+              {item.icon}
               {!isSidebarOpen && <span>{item.title}</span>}
             </a>
           </li>
         ))}
+
+        <li
+          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          onClick={handleSignOut} 
+        >
+          <div className="flex items-center p-4 space-x-2">
+            <VscSignOut className="text-xl" />
+            {!isSidebarOpen && <span>Sign Out</span>}
+          </div>
+        </li>
       </ul>
     </div>
   );

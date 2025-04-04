@@ -1,7 +1,13 @@
+import { useSession } from "next-auth/react";
 import React from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 const Topbar = ({ toggleSidebar }) => {
+  const {data:session} = useSession();
+
+  
+  
+  
   return (
     <div className="bg-white p-4 shadow-md flex justify-between items-center">
       <button onClick={toggleSidebar} className="text-2xl focus:outline-none">
@@ -21,14 +27,19 @@ const Topbar = ({ toggleSidebar }) => {
           ></ion-icon>
         </div>
 
-        <div className="w-10 h-10 rounded-full overflow-hidden">
+        <div>
+          <span>{session?.user?.name}({session?.user?.email})</span>
+        </div>
+
+        <div   className="w-10 h-10 rounded-full overflow-hidden ">
           <img
-            src="/images/Screenshot_4.png"
+            src={session?.user?.image}
             alt="User"
             className="w-full h-full object-cover"
           />
         </div>
       </div>
+      
     </div>
   );
 };
