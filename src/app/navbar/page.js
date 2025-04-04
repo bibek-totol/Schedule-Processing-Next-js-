@@ -8,6 +8,7 @@ import { useState } from "react";
 const Navbar =  () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: session } = useSession();
+  let home="home";
 
 
   console.log(session);
@@ -43,7 +44,7 @@ const Navbar =  () => {
             Home
           </Link>
           <Link
-            href="/panel"
+            href={`/panel/home`}
             className="text-gray-900 hover:text-teal-500 transition-colors"
           >
             Dashboard
