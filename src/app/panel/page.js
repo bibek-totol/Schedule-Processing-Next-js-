@@ -69,8 +69,9 @@ const Panel = () => {
         <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 p-6">
           <RecentOrders />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
-          <RecentCustomers />
           <RecentGraph/>
+          <RecentCustomers />
+          
           </div>
         </div>
       </div>
