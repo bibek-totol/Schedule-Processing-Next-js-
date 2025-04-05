@@ -39,7 +39,7 @@ const Sidebar = ({ isSidebarOpen }) => {
     >
       <div className="p-6">
         <div className="flex items-center space-x-2">
-          {!isSidebarOpen && <span className="text-xl font-bold">Brand Name</span>}
+          {!isSidebarOpen && <span className="text-xl font-bold">Schedule Pro</span>}
         </div>
       </div>
 
@@ -94,6 +94,22 @@ const Sidebar = ({ isSidebarOpen }) => {
           <div className="flex items-center p-4 space-x-2">
             <FiMessageSquare  className="text-xl" />
             {!isSidebarOpen && <span>Events</span>}
+          </div>
+          </Link>
+        </li>
+
+
+
+        <li
+          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          // onClick={handleSignOut} 
+          
+        >
+        
+<Link href='/panel/eventmanagement'>
+          <div className="flex items-center p-4 space-x-2">
+          <FiHelpCircle className="text-xl" />
+            {!isSidebarOpen && <span>Event Management</span>}
           </div>
           </Link>
         </li>

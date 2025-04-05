@@ -9,13 +9,14 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import RecentGraph from "../../components/RecentGraph";
 import Calendar from "../../components/Calendar";
+import EventManagement from "@/app/components/EventManagement";
 
 export default function Panel({ params }) {
   const [view, setView] = useState(null); 
 
   
   useEffect(() => {
-    async function fetchParams() {
+    const fetchParams = async () => {
       const { view} = await params; 
       setView(view || "home"); 
     }
@@ -72,7 +73,9 @@ export default function Panel({ params }) {
           </div>
         ) :( view === "events" ? (
           <Calendar />
-        ) : (
+        ) :view === "eventmanagement" ?(
+          <EventManagement />
+        ):(
           <div className="p-6 text-center text-xl font-semibold text-gray-600">
             Loading view...
           </div>
@@ -81,3 +84,5 @@ export default function Panel({ params }) {
     </div>
   );
 }
+
+
