@@ -1,4 +1,4 @@
-"use client";
+
 
 import React, { useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
@@ -11,7 +11,7 @@ export default function Calendar() {
   const { register, handleSubmit, reset } = useForm();
   const [events, setEvents] = useState([]);
 
-  // Fetch Events from MongoDB
+
   const fetchEvents = async () => {
     try {
       const response = await axios.get("/api/events");
@@ -54,13 +54,13 @@ export default function Calendar() {
 
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
+    <div className="p-6 bg-gray-100 min-h-screen mt-12">
       <h2 className="text-2xl font-bold text-center text-blue-900 mb-4">
         Event Calendar
       </h2>
 
       {/* Event Form */}
-      <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-300 p-4 rounded-lg shadow-md mb-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-300 p-4 rounded-lg shadow-md mb-6 border border-blue-900">
         <div className="mb-3">
           <label className="block font-medium">Event Name</label>
           <input
@@ -97,7 +97,7 @@ export default function Calendar() {
       </form>
 
       
-      <div className="bg-gray-200 p-4 rounded-lg shadow-md">
+      <div className="bg-gray-200 p-4 rounded-lg shadow-lg border border-blue-900">
         <FullCalendar
           plugins={[dayGridPlugin]}
           initialView="dayGridMonth"

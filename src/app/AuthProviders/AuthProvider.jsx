@@ -95,6 +95,43 @@ const AuthProvider = ({ children }) => {
           console.error("Error deleting task:", err);
         }
       }
+
+
+
+
+
+      const deleteevents = async (id) => {
+        try{
+          const response = await axios.delete(`/api/manipulateevent/${id}`);
+          Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) =>{
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your event has been deleted.",
+                icon: "success"
+              });
+            
+              refetch();
+              console.log(response);
+            }
+          });
+       
+        }
+        catch(err){
+          console.error("Error deleting task:", err);
+        }
+      }
+  
+
+
   
   
       const editTask = async (task) => {
@@ -152,6 +189,60 @@ const AuthProvider = ({ children }) => {
             Swal.fire("Error!", "Something went wrong while updating the task.", "error");
         }
     };
+
+
+
+
+
+
+    const editevents = async (event) => {
+      const { _id, title,start,end } = event;
+  
+  
+      const { value: formValues } = await Swal.fire({
+          title: "Edit Event",
+          html: `
+
+          <div class="flex flex-col space-y-4">
+              <input id="swal-title" class="swal2-input" placeholder="Event Title" value="${title || ""}">
+              
+              <input id="swal-start" type="datetime-local" class="swal2-input" value="${start || ""}">
+              <input id="swal-end" type="datetime-local" class="swal2-input" value="${end || ""}">
+
+
+              
+          </div>
+          `,
+          focusConfirm: false,
+          showCancelButton: true,
+          confirmButtonText: "Update",
+          preConfirm: () => {
+              return {
+                  title: document.getElementById("swal-title").value,
+                  start: document.getElementById("swal-start").value,
+                  end: document.getElementById("swal-end").value,
+                  
+              };
+          }
+      });
+  
+      if (!formValues) return; 
+  
+      try {
+          console.log(formValues);
+          
+          const result = await axios.patch(`/api/manipulateevent/${_id}`, formValues);
+  
+          console.log(result.data);
+          refetch();
+        
+          Swal.fire("Success!", "Event updated successfully", "success");
+          
+      } catch (err) {
+          console.error("Error editing event:", err);
+          Swal.fire("Error!", "Something went wrong while updating the event.", "error");
+      }
+  };
     
   
 
@@ -161,7 +252,9 @@ const AuthProvider = ({ children }) => {
       value={{
         addTask,
         editTask,
-        deleteTask
+        deleteTask,
+        deleteevents,
+        editevents
         
 
        

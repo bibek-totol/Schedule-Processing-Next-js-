@@ -1,4 +1,5 @@
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 import React from "react";
 import { 
   FiHome, 
@@ -12,6 +13,8 @@ import { VscSignOut } from "react-icons/vsc";
 import Swal from "sweetalert2";
 
 const Sidebar = ({ isSidebarOpen }) => {
+
+  
 
 
 
@@ -36,18 +39,18 @@ const Sidebar = ({ isSidebarOpen }) => {
     >
       <div className="p-6">
         <div className="flex items-center space-x-2">
-          {!isSidebarOpen && <span className="text-xl font-bold">Brand Name</span>}
+          {!isSidebarOpen && <span className="text-xl font-bold">Schedule Pro</span>}
         </div>
       </div>
 
       <ul className="mt-6">
         {[
-          { icon: <FiHome className="text-xl" />, title: "Dashboard" },
-          { icon: <FiUsers className="text-xl" />, title: "Customers" },
+          {/* { icon: <FiHome className="text-xl" />, title: "Dashboard" }, 
+         { icon: <FiUsers className="text-xl" />, title: "Customers" },
           { icon: <FiMessageSquare className="text-xl" />, title: "Messages" },
           { icon: <FiHelpCircle className="text-xl" />, title: "Help" },
           { icon: <FiSettings className="text-xl" />, title: "Settings" },
-          { icon: <FiLock className="text-xl" />, title: "Password" },
+          { icon: <FiLock className="text-xl" />, title: "Password" }, */}
         ].map((item, index) => (
           <li
             key={index}
@@ -60,6 +63,62 @@ const Sidebar = ({ isSidebarOpen }) => {
           </li>
         ))}
 
+
+
+
+
+        <li
+          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          // onClick={handleSignOut} 
+          
+        >
+        
+<Link href='/panel/home'>
+          <div className="flex items-center p-4 space-x-2">
+            <FiHome className="text-xl" />
+            {!isSidebarOpen && <span>Dashboard</span>}
+          </div>
+          </Link>
+        </li>
+
+
+
+
+        <li
+          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          // onClick={handleSignOut} 
+          
+        >
+        
+<Link href='/panel/events'>
+          <div className="flex items-center p-4 space-x-2">
+            <FiMessageSquare  className="text-xl" />
+            {!isSidebarOpen && <span>Events</span>}
+          </div>
+          </Link>
+        </li>
+
+
+
+        <li
+          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          // onClick={handleSignOut} 
+          
+        >
+        
+<Link href='/panel/eventmanagement'>
+          <div className="flex items-center p-4 space-x-2">
+          <FiHelpCircle className="text-xl" />
+            {!isSidebarOpen && <span>Event Management</span>}
+          </div>
+          </Link>
+        </li>
+
+        
+
+
+
+
         <li
           className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
           onClick={handleSignOut} 
@@ -69,6 +128,7 @@ const Sidebar = ({ isSidebarOpen }) => {
             {!isSidebarOpen && <span>Sign Out</span>}
           </div>
         </li>
+        
       </ul>
     </div>
   );
