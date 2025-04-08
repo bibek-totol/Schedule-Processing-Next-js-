@@ -3,6 +3,7 @@ import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 
 const Navbar =  () => {
@@ -15,6 +16,21 @@ const Navbar =  () => {
 
   console.log(session?.user);
   console.log(session?.user?.image);
+
+
+  const handleSignOut = () => {
+    signOut({ callbackUrl: "/" })
+    Swal.fire(
+      {
+        icon: "success",
+        title: "Success",
+        text: "You have signed out successfully",
+        showConfirmButton: false,
+
+      }
+    )
+  };
+
 
   return (
     <nav className="fixed top-0 w-full bg-white shadow-md z-50">
@@ -64,12 +80,7 @@ const Navbar =  () => {
           </Link>
 
 
-          <Link
-            className="text-gray-900 hover:text-teal-500 transition-colors"
-            href="/calendar-ev"
-          >
-            Events
-          </Link>
+         
 
           
 
@@ -78,7 +89,7 @@ const Navbar =  () => {
 
           {session?.user ? (
             <Link
-              onClick={() => signOut({ callbackUrl: "/" })}
+              onClick={handleSignOut}
               className="text-gray-900 hover:text-teal-500 transition-colors"
               href="#"
             >
@@ -161,22 +172,46 @@ const Navbar =  () => {
         <div className="md:hidden bg-white shadow-md">
           <ul className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow">
             <li>
-              <Link href="/" onClick={() => setIsOpen(false)}>
+              <Link className="text-gray-900 hover:text-teal-500 transition-colors" href="/" onClick={() => setIsOpen(false)}>
                 Home
               </Link>
             </li>
-            <li>
-              <Link href="/signin" onClick={() => setIsOpen(false)}>
+
+
+            {
+              !session?.user ? (
+                <>
+                <li>
+              <Link className="text-gray-900 hover:text-teal-500 transition-colors" href="/signin" onClick={() => setIsOpen(false)}>
                 Signup
               </Link>
             </li>
             <li>
-              <Link href="/login" onClick={() => setIsOpen(false)}>
+              <Link
+              className="text-gray-900 hover:text-teal-500 transition-colors" href="/login" onClick={() => setIsOpen(false)}>
                 Login
               </Link>
             </li>
+                </>
+              ):(
+                <>
+                  <li>
+                  <Link
+              onClick={handleSignOut}
+              className="text-gray-900 hover:text-teal-500 transition-colors"
+              href="#"
+            >
+              Logout
+            </Link>
+                  </li>
+                </>
+              )
+            }
+            
             <li>
-              <Link href="/crud" onClick={() => setIsOpen(false)}>
+              <Link
+              className="text-gray-900 hover:text-teal-500 transition-colors"
+               href="/crud" onClick={() => setIsOpen(false)}>
                 CRUD
               </Link>
             </li>
@@ -188,6 +223,18 @@ const Navbar =  () => {
                 Dashboard
               </Link>
             </li>
+
+            <li>
+              <Link
+                href="/ai-assistant"
+                className="text-gray-900 hover:text-teal-500 transition-colors"
+              >
+                AI-Assistant
+              </Link>
+            </li>
+
+
+            
           </ul>
 
 

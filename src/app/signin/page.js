@@ -147,9 +147,9 @@ export default function Register() {
 
             {/* Login Link */}
             <p className="text-white text-sm">
-              Already have an account?{" "}
-              <Link href="/login" className="text-teal-300 hover:text-teal-400">
-                Login
+              Forget Password?{" "}
+              <Link href="/resetemail" className="text-teal-300 hover:text-teal-400">
+                Reset
               </Link>
             </p>
           </form>
