@@ -4,18 +4,21 @@ import React, { useContext } from "react";
 import { ContextProvider } from "../AuthProviders/AuthProvider";
 
 const EventManagement = () => {
-    const { data: events=[], isLoading, error,refetch } = useQuery({
-      queryKey: ["events"],
-      queryFn: async () => {
-          const res = await axios.get('/api/events');
-          console.log(res.data.events);
-          return res.data.events;
-      },
+  const {
+    data: events = [],
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["events"],
+    queryFn: async () => {
+      const res = await axios.get("/api/events");
+      console.log(res.data.events);
+      return res.data.events;
+    },
   });
 
-
-  
-  const {editevents,deleteevents} = useContext(ContextProvider);
+  const { editevents, deleteevents } = useContext(ContextProvider);
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg">
@@ -27,36 +30,45 @@ const EventManagement = () => {
         </a>
       </div>
 
-      <table className="w-full">
-        <thead>
-          <tr>
-            <th className="text-left py-2">Event Title</th>
-            <th className="text-left py-2">Starting Time</th>
-            <th className="text-left py-2 ">Ending Time</th>
-           
-            <th className="text-left py-2">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {events.map((event, index) => (
-            <tr key={index} className="hover:bg-gray-100">
-              <td className="py-2">{event.title}</td>
-              <td className="py-2">{event.start}</td>
-              <td className="py-2">{event.end}</td>
-             
-              <td className="py-2">
-              <div className="flex gap-2">
-              <button className="btn btn-success" onClick={() => editevents(event)}>Edit</button>
-      <button className="btn btn-error" onClick={() => deleteevents(event._id)}>Delete</button>
-      </div>
-              </td>
-         
+      <div className="overflow-x-auto">
+        <table className="w-full table-auto">
+          <thead>
+            <tr>
+              <th className="text-left py-2 px-4">Event Title</th>
+              <th className="text-left py-2 px-4">Starting Time</th>
+              <th className="text-left py-2 px-4">Ending Time</th>
 
-              
+              <th className="text-left py-2 px-4">Status</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {events.map((event, index) => (
+              <tr key={index} className="hover:bg-gray-100">
+                <td className="py-2 px-4">{event.title}</td>
+                <td className="py-2 px-4">{event.start}</td>
+                <td className="py-2 px-4">{event.end}</td>
+
+                <td className="py-2 px-4">
+                  <div className="flex gap-2">
+                    <button
+                      className="btn btn-success"
+                      onClick={() => editevents(event)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="btn btn-error"
+                      onClick={() => deleteevents(event._id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

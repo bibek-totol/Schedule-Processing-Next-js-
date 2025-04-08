@@ -3,15 +3,15 @@ import React from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 const Topbar = ({ toggleSidebar }) => {
-  const {data:session} = useSession();
+  const { data: session } = useSession();
 
-  
-  
-  
   return (
-    <div className="bg-white p-4 shadow-md flex justify-between items-center">
-      <button onClick={toggleSidebar} className="text-2xl focus:outline-none">
-      <GiHamburgerMenu />
+    <div className="bg-white p-4 shadow-md flex justify-between md:justify-end items-center">
+      <button
+        onClick={toggleSidebar}
+        className="text-2xl block md:hidden focus:outline-none"
+      >
+        <GiHamburgerMenu />
       </button>
 
       <div className="flex items-center space-x-4">
@@ -28,10 +28,12 @@ const Topbar = ({ toggleSidebar }) => {
         </div>
 
         <div>
-          <span>{session?.user?.name}({session?.user?.email})</span>
+          <span className="hidden md:block">
+            {session?.user?.name}({session?.user?.email})
+          </span>
         </div>
 
-        <div   className="w-10 h-10 rounded-full overflow-hidden ">
+        <div className="w-10 h-10 rounded-full overflow-hidden ">
           <img
             src={session?.user?.image}
             alt="User"
@@ -39,7 +41,6 @@ const Topbar = ({ toggleSidebar }) => {
           />
         </div>
       </div>
-      
     </div>
   );
 };

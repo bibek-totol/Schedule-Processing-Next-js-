@@ -12,18 +12,16 @@ import Calendar from "../../components/Calendar";
 import EventManagement from "@/app/components/EventManagement";
 
 export default function Panel({ params }) {
-  const [view, setView] = useState(null); 
+  const [view, setView] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  
   useEffect(() => {
     const fetchParams = async () => {
-      const { view} = await params; 
-      setView(view || "home"); 
-    }
+      const { view } = await params;
+      setView(view || "home");
+    };
     fetchParams();
   }, [params]);
-
-
 
   const { data: tasks = [], isLoading: tasksLoading } = useQuery({
     queryKey: ["tasks"],
@@ -41,16 +39,17 @@ export default function Panel({ params }) {
     },
   });
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="md:flex min-h-screen bg-gray-100">
       {/* Sidebar */}
-      <Sidebar isSidebarOpen={isSidebarOpen} />
+      <div className="">
+        <Sidebar isSidebarOpen={isSidebarOpen} />
+      </div>
 
       {/* Main Content */}
-      <div className={`flex-1 transition-all duration-300 ${isSidebarOpen ? "ml-20" : "ml-64"}`}>
+      <div className={`md:flex-1 transition-all duration-300 md:ml-64`}>
         {/* Topbar */}
         <Topbar toggleSidebar={toggleSidebar} />
 
@@ -58,11 +57,14 @@ export default function Panel({ params }) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
           <Card title="Total Tasks" value={tasks.length} icon="eye-outline" />
           <Card title="Priority Tasks" value="80" icon="cart-outline" />
-          <Card title="Total Team Members" value={users.length} icon="chatbubbles-outline" />
+          <Card
+            title="Total Team Members"
+            value={users.length}
+            icon="chatbubbles-outline"
+          />
           <Card title="Earning" value="$7,842" icon="cash-outline" />
         </div>
 
-        
         {view === "home" ? (
           <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 p-6">
             <RecentOrders />
@@ -71,18 +73,18 @@ export default function Panel({ params }) {
               <RecentCustomers />
             </div>
           </div>
-        ) :( view === "events" ? (
+        ) : view === "events" ? (
           <Calendar />
-        ) :view === "eventmanagement" ?(
-          <EventManagement />
-        ):(
+        ) : view === "eventmanagement" ? (
+          <div className="p-6">
+            <EventManagement />
+          </div>
+        ) : (
           <div className="p-6 text-center text-xl font-semibold text-gray-600">
             Loading view...
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
 }
-
-
