@@ -11,8 +11,9 @@ import {
 } from "react-icons/fi";
 import { VscSignOut } from "react-icons/vsc";
 import Swal from "sweetalert2";
+import { GiHamburgerMenu } from "react-icons/gi";
 
-const Sidebar = ({ isSidebarOpen }) => {
+const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
   const handleSignOut = () => {
     signOut({ callbackUrl: "/" });
     Swal.fire({
@@ -25,12 +26,18 @@ const Sidebar = ({ isSidebarOpen }) => {
 
   return (
     <div
-      className={`fixed z-30 h-full mt-[74px] md:mt-0 transition-all md:translate-x-0 duration-300 ${
-        isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-      } md:w-64 w-64 bg-blue-900 text-white`}
+      className={`fixed z-30 h-full transition-all md:translate-x-0 duration-300 ${
+         isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+       } md:w-64 w-64 bg-blue-900 text-white`}
     >
       <div className="p-6">
         <div className="flex items-center space-x-2">
+        <button
+             onClick={toggleSidebar}
+             className="text-2xl block md:hidden focus:outline-none"
+           >
+             <GiHamburgerMenu />
+           </button>
           <span className="text-xl font-bold">Schedule Pro</span>
         </div>
       </div>
@@ -59,7 +66,7 @@ const Sidebar = ({ isSidebarOpen }) => {
 
         <li
           className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
-          // onClick={handleSignOut}
+          
         >
           <Link href="/panel/home">
             <div className="flex items-center p-4 space-x-2">
@@ -71,7 +78,7 @@ const Sidebar = ({ isSidebarOpen }) => {
 
         <li
           className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
-          // onClick={handleSignOut}
+      
         >
           <Link href="/panel/events">
             <div className="flex items-center p-4 space-x-2">
@@ -83,7 +90,7 @@ const Sidebar = ({ isSidebarOpen }) => {
 
         <li
           className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
-          // onClick={handleSignOut}
+          
         >
           <Link href="/panel/eventmanagement">
             <div className="flex items-center p-4 space-x-2">

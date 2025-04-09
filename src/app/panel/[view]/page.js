@@ -45,7 +45,7 @@ export default function Panel({ params }) {
     <div className="md:flex min-h-screen bg-gray-100">
       {/* Sidebar */}
       <div className="">
-        <Sidebar isSidebarOpen={isSidebarOpen} />
+      <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       </div>
 
       {/* Main Content */}
