@@ -4,18 +4,21 @@ import React, { useContext } from "react";
 import { ContextProvider } from "../AuthProviders/AuthProvider";
 
 const RecentOrders = () => {
-    const { data: tasks=[], isLoading, error,refetch } = useQuery({
-      queryKey: ["tasks"],
-      queryFn: async () => {
-          const res = await axios.get('/api/addtask');
-          console.log(res.data.tasks);
-          return res.data.tasks;
-      },
+  const {
+    data: tasks = [],
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["tasks"],
+    queryFn: async () => {
+      const res = await axios.get("/api/addtask");
+      console.log(res.data.tasks);
+      return res.data.tasks;
+    },
   });
 
-
-  
-  const {editTask,deleteTask} = useContext(ContextProvider);
+  const { editTask, deleteTask } = useContext(ContextProvider);
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg">
@@ -27,34 +30,44 @@ const RecentOrders = () => {
         </a>
       </div>
 
-      <table className="w-full">
-        <thead>
-          <tr>
-            <th className="text-left py-2">Name</th>
-            <th className="text-left py-2">Task</th>
-            <th className="text-left py-2 ">Date</th>
-            <th className="text-left py-2">Time</th>
-            <th className="text-left py-2">Priority</th>
-            <th className="text-left py-2">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tasks.map((task, index) => (
-            <tr key={index} className="hover:bg-gray-100">
-              <td className="py-2">{task.name}</td>
-              <td className="py-2">{task.task}</td>
-              <td className="py-2">{task.date}</td>
-              <td className="py-2">{task.time}</td>
-              <td className="py-2">{task.priority}</td>
-              <td className="py-2">
-              <div className="flex gap-2">
-              <button className="btn btn-success" onClick={() => editTask(task)}>Edit</button>
-      <button className="btn btn-error" onClick={() => deleteTask(task._id)}>Delete</button>
-      </div>
-              </td>
-         
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr>
+              <th className="text-left py-2 px-4">Name</th>
+              <th className="text-left py-2 px-4">Task</th>
+              <th className="text-left py-2 px-4 ">Date</th>
+              <th className="text-left py-2 px-4">Time</th>
+              <th className="text-left py-2 px-4">Priority</th>
+              <th className="text-left py-2 px-4">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tasks.map((task, index) => (
+              <tr key={index} className="hover:bg-gray-100">
+                <td className="py-2 px-4">{task.name}</td>
+                <td className="py-2 px-4">{task.task}</td>
+                <td className="py-2 px-4">{task.date}</td>
+                <td className="py-2 px-4">{task.time}</td>
+                <td className="py-2 px-4">{task.priority}</td>
+                <td className="py-2 px-4">
+                  <div className="flex gap-2">
+                    <button
+                      className="btn btn-success"
+                      onClick={() => editTask(task)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="btn btn-error"
+                      onClick={() => deleteTask(task._id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
 
-              {/* <td className="py-2">
+                {/* <td className="py-2">
                 <span
                   className={`px-2 py-1 rounded-full text-sm ${
                     order.status === "Delivered"
@@ -69,10 +82,11 @@ const RecentOrders = () => {
                   {order.status}
                 </span>
               </td> */}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
