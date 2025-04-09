@@ -28,35 +28,40 @@ export default function Feature() {
   ];
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 ">
       <div className="container mx-auto px-4">
         <Fade direction="down" triggerOnce>
           <h2 className="text-3xl font-bold text-center mb-12">Key Features</h2>
         </Fade>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, index) => (
-            <Fade
-              key={index}
-              direction="up"
-              delay={index * 100} // Staggered effect
-              triggerOnce // Animate only once
-            >
-              <div className="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg hover:-translate-y-2 transition-all duration-300">
-                <div className="w-12 h-12 mx-auto mb-4 bg-teal-100 rounded-full flex items-center justify-center">
-                  <Image
-                    src={feature.icon}
-                    width={32}
-                    height={32}
-                    alt={feature.title}
-                    className="object-contain"
-                  />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.desc}</p>
-              </div>
-            </Fade>
-          ))}
+  {features.map((feature, index) => (
+    <Fade
+      key={index}
+      direction="up"
+      delay={index * 100}
+      duration={1000}
+    >
+      
+      <div className="p-[4px] rounded-lg bg-gradient-to-r from-pink-500 to-indigo-500 h-full">
+        
+        <div className="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg hover:-translate-y-2 transition-all duration-300 h-full ">
+          <div className="w-12 h-12 mx-auto mb-4 bg-teal-100 rounded-full flex items-center justify-center">
+            <Image
+              src={feature.icon}
+              width={32}
+              height={32}
+              alt={feature.title}
+              className="object-contain"
+            />
+          </div>
+          <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+          <p className="text-gray-600">{feature.desc}</p>
         </div>
+      </div>
+    </Fade>
+  ))}
+</div>
+
       </div>
     </section>
   );

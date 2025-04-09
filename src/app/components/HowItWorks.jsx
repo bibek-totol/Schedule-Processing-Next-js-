@@ -1,4 +1,5 @@
 import React from 'react'
+import { Zoom } from 'react-awesome-reveal';
 
 export default function HowItWorks() {
   return (
@@ -8,6 +9,7 @@ export default function HowItWorks() {
               How It Works
             </h2>
             <div className="flex flex-col md:flex-row justify-between gap-8">
+            <Zoom   cascade duration={1000} >
               <div className="text-center flex-1">
                 <div className="text-teal-500 text-4xl font-bold mb-4">01</div>
                 <h3 className="text-xl font-semibold mb-2">Sign Up</h3>
@@ -29,6 +31,7 @@ export default function HowItWorks() {
                   Stay organized and productive.
                 </p>
               </div>
+              </Zoom>
             </div>
           </div>
         </section>
