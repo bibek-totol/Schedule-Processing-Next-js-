@@ -12,7 +12,7 @@ import {
 import { GiHamburgerMenu } from "react-icons/gi";
 import { VscSignOut } from "react-icons/vsc";
 import Swal from "sweetalert2";
-import { GiHamburgerMenu } from "react-icons/gi";
+
 
 const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
   const handleSignOut = () => {
