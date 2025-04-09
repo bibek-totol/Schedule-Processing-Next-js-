@@ -1,56 +1,50 @@
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
-import { 
-  FiHome, 
-  FiUsers, 
-  FiMessageSquare, 
-  FiHelpCircle, 
-  FiSettings, 
-  FiLock 
+import {
+  FiHome,
+  FiUsers,
+  FiMessageSquare,
+  FiHelpCircle,
+  FiSettings,
+  FiLock,
 } from "react-icons/fi";
 import { VscSignOut } from "react-icons/vsc";
 import Swal from "sweetalert2";
 
 const Sidebar = ({ isSidebarOpen }) => {
-
-  
-
-
-
   const handleSignOut = () => {
-    signOut({ callbackUrl: "/" })
-    Swal.fire(
-      {
-        icon: "success",
-        title: "Success",
-        text: "You have signed out successfully",
-        showConfirmButton: false,
-
-      }
-    )
+    signOut({ callbackUrl: "/" });
+    Swal.fire({
+      icon: "success",
+      title: "Success",
+      text: "You have signed out successfully",
+      showConfirmButton: false,
+    });
   };
 
   return (
     <div
-      className={`fixed h-screen w-64 bg-blue-900 text-white transition-all duration-300 ${
-        isSidebarOpen ? "w-20" : "w-64"
-      }`}
+      className={`fixed z-30 h-full mt-[74px] md:mt-0 transition-all md:translate-x-0 duration-300 ${
+        isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+      } md:w-64 w-64 bg-blue-900 text-white`}
     >
       <div className="p-6">
         <div className="flex items-center space-x-2">
-          {!isSidebarOpen && <span className="text-xl font-bold">Schedule Pro</span>}
+          <span className="text-xl font-bold">Schedule Pro</span>
         </div>
       </div>
 
       <ul className="mt-6">
         {[
-          {/* { icon: <FiHome className="text-xl" />, title: "Dashboard" }, 
+          {
+            /* { icon: <FiHome className="text-xl" />, title: "Dashboard" }, 
          { icon: <FiUsers className="text-xl" />, title: "Customers" },
           { icon: <FiMessageSquare className="text-xl" />, title: "Messages" },
           { icon: <FiHelpCircle className="text-xl" />, title: "Help" },
           { icon: <FiSettings className="text-xl" />, title: "Settings" },
-          { icon: <FiLock className="text-xl" />, title: "Password" }, */}
+          { icon: <FiLock className="text-xl" />, title: "Password" }, */
+          },
         ].map((item, index) => (
           <li
             key={index}
@@ -63,72 +57,51 @@ const Sidebar = ({ isSidebarOpen }) => {
           </li>
         ))}
 
-
-
-
-
         <li
           className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
-          // onClick={handleSignOut} 
-          
+          // onClick={handleSignOut}
         >
-        
-<Link href='/panel/home'>
-          <div className="flex items-center p-4 space-x-2">
-            <FiHome className="text-xl" />
-            {!isSidebarOpen && <span>Dashboard</span>}
-          </div>
+          <Link href="/panel/home">
+            <div className="flex items-center p-4 space-x-2">
+              <FiHome className="text-xl" />
+              <span>Dashboard</span>
+            </div>
           </Link>
         </li>
 
-
-
-
         <li
           className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
-          // onClick={handleSignOut} 
-          
+          // onClick={handleSignOut}
         >
-        
-<Link href='/panel/events'>
-          <div className="flex items-center p-4 space-x-2">
-            <FiMessageSquare  className="text-xl" />
-            {!isSidebarOpen && <span>Events</span>}
-          </div>
+          <Link href="/panel/events">
+            <div className="flex items-center p-4 space-x-2">
+              <FiMessageSquare className="text-xl" />
+              <span>Events</span>
+            </div>
           </Link>
         </li>
 
-
-
         <li
           className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
-          // onClick={handleSignOut} 
-          
+          // onClick={handleSignOut}
         >
-        
-<Link href='/panel/eventmanagement'>
-          <div className="flex items-center p-4 space-x-2">
-          <FiHelpCircle className="text-xl" />
-            {!isSidebarOpen && <span>Event Management</span>}
-          </div>
+          <Link href="/panel/eventmanagement">
+            <div className="flex items-center p-4 space-x-2">
+              <FiHelpCircle className="text-xl" />
+              <span>Event Management</span>
+            </div>
           </Link>
         </li>
 
-        
-
-
-
-
         <li
           className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
-          onClick={handleSignOut} 
+          onClick={handleSignOut}
         >
           <div className="flex items-center p-4 space-x-2">
             <VscSignOut className="text-xl" />
-            {!isSidebarOpen && <span>Sign Out</span>}
+            <span>Sign Out</span>
           </div>
         </li>
-        
       </ul>
     </div>
   );
