@@ -34,12 +34,14 @@ const RecentOrders = () => {
         <table className="w-full">
           <thead>
             <tr>
-              <th className="text-left py-2 px-4">Name</th>
+              <th className="text-left py-2 px-4">Task Creator</th>
               <th className="text-left py-2 px-4">Task</th>
               <th className="text-left py-2 px-4 ">Date</th>
               <th className="text-left py-2 px-4">Time</th>
               <th className="text-left py-2 px-4">Priority</th>
-              <th className="text-left py-2 px-4">Status</th>
+              <th className="text-left py-2 px-4">Assigned To</th>
+              <th className="text-left py-2 px-4">Action</th>
+            
             </tr>
           </thead>
           <tbody>
@@ -50,6 +52,7 @@ const RecentOrders = () => {
                 <td className="py-2 px-4">{task.date}</td>
                 <td className="py-2 px-4">{task.time}</td>
                 <td className="py-2 px-4">{task.priority}</td>
+                <td className="py-2 px-4">{task.assignedTo}</td>
                 <td className="py-2 px-4">
                   <div className="flex gap-2">
                     <button
@@ -66,6 +69,10 @@ const RecentOrders = () => {
                     </button>
                   </div>
                 </td>
+
+
+
+               
 
                 {/* <td className="py-2">
                 <span

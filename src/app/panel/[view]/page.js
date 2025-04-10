@@ -10,6 +10,7 @@ import axios from "axios";
 import RecentGraph from "../../components/RecentGraph";
 import Calendar from "../../components/Calendar";
 import EventManagement from "@/app/components/EventManagement";
+import ADDTASK from "@/app/components/ADDTASK";
 
 export default function Panel({ params }) {
   const [view, setView] = useState(null);
@@ -79,7 +80,11 @@ export default function Panel({ params }) {
           <div className="p-6">
             <EventManagement />
           </div>
-        ) : (
+        ) :  view === "addtasks" ? (
+          <div className="p-6">
+            <ADDTASK />
+          </div>
+        ): (
           <div className="p-6 text-center text-xl font-semibold text-gray-600">
             Loading view...
           </div>
@@ -88,3 +93,4 @@ export default function Panel({ params }) {
     </div>
   );
 }
+

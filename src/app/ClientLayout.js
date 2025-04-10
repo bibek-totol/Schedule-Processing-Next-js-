@@ -8,7 +8,7 @@ export default function ClientLayout({ children }) {
   const pathname = usePathname();
 
   
-  const hideNavbarFooterRoutes = ["/panel/home", "/panel/events", "/panel/eventmanagement"];
+  const hideNavbarFooterRoutes = ["/panel/home", "/panel/events", "/panel/eventmanagement", "/panel/addtasks"];
   const hideFooterRoutes = ["/ai-assistant"];
 
   const hideNavbarFooter = hideNavbarFooterRoutes.includes(pathname);

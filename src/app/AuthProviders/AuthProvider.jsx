@@ -14,12 +14,12 @@ const AuthProvider = ({ children }) => {
 
 
 
-  const { data: tasks=[], isLoading, error,refetch } = useQuery({
-    queryKey: ["tasks"],
+  const { data: users=[], isLoading, error,refetch } = useQuery({
+    queryKey: ["users"],
     queryFn: async () => {
-        const res = await axios.get('/api/addtask');
-        console.log(res.data.tasks);
-        return res.data.tasks;
+        const res = await axios.get('/api/users');
+        console.log(res.data.users);
+        return res.data.users;
     },
 });
  
@@ -32,16 +32,17 @@ const AuthProvider = ({ children }) => {
         const date = e.target.date.value;
         const time = e.target.time.value;
         const priority = e.target.priority.value;
+        const assignedTo = e.target.assignedTo.value;
       
         
-        if (!name || !task || !date || !time || !priority) {
+        if (!name || !task || !date || !time || !priority || !assignedTo) {
           Swal.fire("Error", "Please fill in all the fields", "error");
           return;
         }
       
         try {
 
-            console.log(name, task, date, time, priority);
+            console.log(name, task, date, time, priority, assignedTo);
           
           const result = await axios.post("/api/addtask", {
             name,
@@ -49,6 +50,7 @@ const AuthProvider = ({ children }) => {
             date,
             time,
             priority,
+            assignedTo
           });
       
           console.log(result.status);
@@ -254,7 +256,8 @@ const AuthProvider = ({ children }) => {
         editTask,
         deleteTask,
         deleteevents,
-        editevents
+        editevents,
+        users,
         
 
        

@@ -6,13 +6,16 @@ import { signIn } from "next-auth/react"
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 import GoogleLogin from './socialLogin/GoogleLogin';
+import Loader from '../components/Loader';
 
 export default function Login() {
   
   const router = useRouter() ; 
+  const [loading, setLoading] = React.useState(false);
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setLoading(true);
 
     const form = new FormData(e.target);
     const email = form.get("email");
@@ -23,6 +26,8 @@ export default function Login() {
     // console.log(res);
 
     if (res.ok) {
+
+      setLoading(false);
 
       router.push("/");
       Swal.fire({
@@ -36,6 +41,8 @@ export default function Login() {
     }
 
     else {
+
+      setLoading(false);
 
       console.log("Login failed", res.error);
       Swal.fire({
@@ -93,12 +100,20 @@ export default function Login() {
             </div>
 
             {/* Submit Button */}
-            <button
+            {
+              loading?(
+                <Loader/>
+                
+              ):(
+                <button
               type='submit'
               className="btn btn-outline btn-success mb-4">
 
               Login
             </button>
+              )
+            }
+           
 
             {/* Register Link */}
             <p className="text-white text-sm">

@@ -4,18 +4,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
+import Loader from "../components/Loader";
 
 export default function Register() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const form = new FormData(e.target);
     const email = form.get("email");
     const username = form.get("name");
     const photoURL = form.get("photo");
     const password = form.get("password");
+    
     // console.log(email, password, photoURL, username);
 
 
@@ -27,6 +31,7 @@ export default function Register() {
       });
 
       if (res.ok) {
+        setLoading(false);
         Swal.fire(
           "Registered Successfully",
           "You can now login",
@@ -35,6 +40,7 @@ export default function Register() {
         )
 
         router.push("/");
+
        
       
       }
@@ -42,6 +48,7 @@ export default function Register() {
       else{
 
         console.log(res);
+        setLoading(false);
 
         Swal.fire(
           "Error",
@@ -141,9 +148,18 @@ export default function Register() {
             </div>
 
             {/* Submit Button */}
-            <button className="btn btn-outline btn-success mb-4">
+            {
+              loading ? (
+                <Loader/>
+              ):(
+                <>
+                <button className="btn btn-outline btn-success mb-4">
               Register
             </button>
+                </>
+              )
+            }
+           
 
             {/* Login Link */}
             <p className="text-white text-sm">
