@@ -1,18 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Sidebar from "../../components/Sidebar";
-import Topbar from "../../components/Topbar";
-import Card from "../../components/Card";
-import RecentOrders from "../../components/RecentOrders";
-import RecentCustomers from "../../components/RecentCustomers";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import RecentGraph from "../../components/RecentGraph";
-import Calendar from "../../components/Calendar";
+import Sidebar from "@/app/components/Sidebar";
+import Topbar from "@/app/components/Topbar";
+import Card from "@/app/components/Card";
+import RecentOrders from "@/app/components/RecentOrders";
+import RecentGraph from "@/app/components/RecentGraph";
+import RecentCustomers from "@/app/components/RecentCustomers";
+import Calendar from "@/app/components/Calendar";
 import EventManagement from "@/app/components/EventManagement";
 import ADDTASK from "@/app/components/ADDTASK";
 
-export default function Panel({ params }) {
+
+export default function EmployeePanel({ params }) {
   const [view, setView] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -69,7 +70,7 @@ export default function Panel({ params }) {
         {view === "home" ? (
           <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 p-6">
             <RecentOrders />
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
+            <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 p-6">
               <RecentGraph />
               <RecentCustomers />
             </div>

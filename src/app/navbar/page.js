@@ -33,7 +33,7 @@ const Navbar =  () => {
 
 
   return (
-    <nav className="fixed top-0 w-full bg-white shadow-md z-50">
+    <nav className="fixed top-0 w-full bg-gray-900 shadow-md z-50">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
@@ -55,30 +55,37 @@ const Navbar =  () => {
         <div className="hidden md:flex space-x-6">
           <Link
             href="/"
-            className="text-gray-900 hover:text-teal-500 transition-colors"
+            className="text-white hover:text-teal-500 transition-colors"
           >
             Home
           </Link>
-          <Link
+
+          {
+           ( session?.user?.role === "admin") ? (
+              <Link
             href={`/panel/home`}
-            className="text-gray-900 hover:text-teal-500 transition-colors"
+            className="text-white hover:text-teal-500 transition-colors"
           >
             Dashboard
           </Link>
+            ):(
+              <Link
+            href={`/employeepanel/home`}
+            className="text-white hover:text-teal-500 transition-colors"
+          >
+            Dashboard
+          </Link>
+            )
+          }
+          
 
-          <Link href="/ai-assistant" className="text-gray-900 hover:text-teal-500 transition-colors">
+          <Link href="/ai-assistant" className="text-white hover:text-teal-500 transition-colors">
           AI-Assistant
           </Link>
         
 
         
-          <Link
-            className="text-gray-900 hover:text-teal-500 transition-colors"
-            href="/crud"
-          >
-            CRUD
-          </Link>
-
+          
 
          
 
@@ -90,7 +97,7 @@ const Navbar =  () => {
           {session?.user ? (
             <Link
               onClick={handleSignOut}
-              className="text-gray-900 hover:text-teal-500 transition-colors"
+              className="text-white hover:text-teal-500 transition-colors"
               href="#"
             >
               Logout
@@ -99,14 +106,14 @@ const Navbar =  () => {
           ) : (
             <>
               <Link
-                className="text-gray-900 hover:text-teal-500 transition-colors"
+                className="text-white hover:text-teal-500 transition-colors"
                 href="/signin"
               >
                 Signup
               </Link>
 
               <Link
-                className="text-gray-900 hover:text-teal-500 transition-colors"
+                className="text-white hover:text-teal-500 transition-colors"
                 href="/login"
               >
                 Login
@@ -125,7 +132,7 @@ const Navbar =  () => {
         </div>
 
         <div>
-          <h4 className="font-semibold">{session?.user?.name}</h4>
+          <h4 className="font-semibold text-white">{session?.user?.name}</h4>
         </div>
 
         </div>
@@ -139,7 +146,7 @@ const Navbar =  () => {
             className="text-gray-900 focus:outline-none "
           >
             <svg
-              className="h-6 w-6"
+              className="h-6 w-6 text-white"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -169,10 +176,10 @@ const Navbar =  () => {
      
       {/* Mobile Dropdown Menu */}
       {isOpen && (
-        <div className="md:hidden bg-white shadow-md">
-          <ul className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow">
+        <div className="md:hidden bg-blue-900 shadow-md">
+          <ul className="menu menu-sm dropdown-content bg-blue-900 rounded-box z-10 mt-3 w-52 p-2 shadow">
             <li>
-              <Link className="text-gray-900 hover:text-teal-500 transition-colors" href="/" onClick={() => setIsOpen(false)}>
+              <Link className="text-white hover:text-teal-500 transition-colors" href="/" onClick={() => setIsOpen(false)}>
                 Home
               </Link>
             </li>
@@ -182,13 +189,13 @@ const Navbar =  () => {
               !session?.user ? (
                 <>
                 <li>
-              <Link className="text-gray-900 hover:text-teal-500 transition-colors" href="/signin" onClick={() => setIsOpen(false)}>
+              <Link className="text-white hover:text-teal-500 transition-colors" href="/signin" onClick={() => setIsOpen(false)}>
                 Signup
               </Link>
             </li>
             <li>
               <Link
-              className="text-gray-900 hover:text-teal-500 transition-colors" href="/login" onClick={() => setIsOpen(false)}>
+              className="text-white hover:text-teal-500 transition-colors" href="/login" onClick={() => setIsOpen(false)}>
                 Login
               </Link>
             </li>
@@ -198,7 +205,7 @@ const Navbar =  () => {
                   <li>
                   <Link
               onClick={handleSignOut}
-              className="text-gray-900 hover:text-teal-500 transition-colors"
+              className="text-white hover:text-teal-500 transition-colors"
               href="#"
             >
               Logout
@@ -208,17 +215,11 @@ const Navbar =  () => {
               )
             }
             
-            <li>
-              <Link
-              className="text-gray-900 hover:text-teal-500 transition-colors"
-               href="/crud" onClick={() => setIsOpen(false)}>
-                CRUD
-              </Link>
-            </li>
+           
             <li>
               <Link
                 href="/panel"
-                className="text-gray-900 hover:text-teal-500 transition-colors"
+                className="text-white hover:text-teal-500 transition-colors"
               >
                 Dashboard
               </Link>
@@ -227,7 +228,7 @@ const Navbar =  () => {
             <li>
               <Link
                 href="/ai-assistant"
-                className="text-gray-900 hover:text-teal-500 transition-colors"
+                className="text-white hover:text-teal-500 transition-colors"
               >
                 AI-Assistant
               </Link>

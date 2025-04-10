@@ -5,10 +5,26 @@ export const middleware = async (req) => {
   const token = await getToken({ req });
 
   const isAdminUser = token?.role === "admin";
-  const isAdminSpecificRoute = req.nextUrl.pathname.startsWith("/panel");
+  const isEmployeeUser = token?.role === "employee";
+  console.log("User role from token:", token?.role);
 
-  if (isAdminSpecificRoute && !isAdminUser) {
-    const callbackUrl = encodeURIComponent(req.nextUrl.pathname);
+
+  const path = req.nextUrl.pathname;
+
+   const isAdminRoute = path.startsWith("/panel"); 
+  const isEmployeeRoute = path.startsWith("/employeepanel"); 
+
+  
+  // if (isAdminRoute && !isAdminUser) {
+  //   const callbackUrl = encodeURIComponent(path);
+  //   return NextResponse.redirect(
+  //     new URL(`/login?callbackUrl=${callbackUrl}`, req.url)
+  //   );
+  // }
+
+  
+  if (isEmployeeRoute && !isEmployeeUser) {
+    const callbackUrl = encodeURIComponent(path);
     return NextResponse.redirect(
       new URL(`/login?callbackUrl=${callbackUrl}`, req.url)
     );

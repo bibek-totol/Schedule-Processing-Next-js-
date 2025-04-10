@@ -12,9 +12,14 @@ import {
 import { GiHamburgerMenu } from "react-icons/gi";
 import { VscSignOut } from "react-icons/vsc";
 import Swal from "sweetalert2";
+import { useSession } from "next-auth/react";
+
 
 
 const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
+
+  const { data: session, status } = useSession();
+  const role = session?.user?.role;
   const handleSignOut = () => {
     signOut({ callbackUrl: "/" });
     Swal.fire({
@@ -65,17 +70,37 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
           </li>
         ))}
 
-        <li
+
+        {
+          role === "admin" ?(
+            <>
+            <li
           className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
           
         >
           <Link href="/panel/home">
             <div className="flex items-center p-4 space-x-2">
               <FiHome className="text-xl" />
-              <span>Dashboard</span>
+              <span>Admin Dashboard</span>
             </div>
           </Link>
         </li>
+
+
+
+
+        <li
+          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+      
+        >
+          <Link href="/panel/addtasks">
+            <div className="flex items-center p-4 space-x-2">
+              <FiUsers  className="text-xl" />
+              <span>ADD TASKS</span>
+            </div>
+          </Link>
+        </li>
+
 
         <li
           className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
@@ -110,6 +135,36 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
             <span>Sign Out</span>
           </div>
         </li>
+            </>
+          ):(
+            <>
+            <li
+          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          
+        >
+          <Link href="/employeepanel/home">
+            <div className="flex items-center p-4 space-x-2">
+              <FiHome className="text-xl" />
+              <span>Employee Dashboard</span>
+            </div>
+          </Link>
+        </li>
+
+
+        <li
+          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          onClick={handleSignOut}
+        >
+          <div className="flex items-center p-4 space-x-2">
+            <VscSignOut className="text-xl" />
+            <span>Sign Out</span>
+          </div>
+        </li>
+            </>
+          )
+        }
+
+        
       </ul>
     </div>
   );

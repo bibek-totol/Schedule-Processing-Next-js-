@@ -1,28 +1,39 @@
 "use client";
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { signIn } from "next-auth/react"
-import { useRouter } from 'next/navigation';
-import Swal from 'sweetalert2';
-import GoogleLogin from './socialLogin/GoogleLogin';
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
+import GoogleLogin from "./socialLogin/GoogleLogin";
+import Loader from "../components/Loader";
+import { set } from "react-hook-form";
 
 export default function Login() {
-  
-  const router = useRouter() ; 
+  const router = useRouter();
+  const [loading, setLoading] = React.useState(false);
+  const[lock, setLock] = React.useState(false);
+  const [message, setMessage] = React.useState('');
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const form = new FormData(e.target);
     const email = form.get("email");
     const password = form.get("password");
+
     // console.log(email, password);
 
-    const res = await signIn("credentials", { email, password, redirect : false });
-    // console.log(res);
+    const res = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+    console.log(res);
 
     if (res.ok) {
+      setLoading(false);
 
       router.push("/");
       Swal.fire({
@@ -30,23 +41,27 @@ export default function Login() {
         icon: "success",
         title: "Successfully Logged In",
         showConfirmButton: false,
-        timer: 1500
+        timer: 1500,
       });
-
-    }
-
-    else {
+    } else {
+      setLoading(false);
 
       console.log("Login failed", res.error);
+      const isLocked = res.error?.toLowerCase().includes("locked");
+      setLock(isLocked);
+      setMessage(res.error);
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "UnKnown User",
-        showConfirmButton: false,
-        timer: 1500
+        title: isLocked ? "Account Locked" : "Invalid Credentials",
+        text: isLocked
+          ? "Your account is temporarily locked. Please try again later."
+          : "Email or password is incorrect.",
+        showConfirmButton: true,
+      
       });
     }
-  }
+  };
 
   return (
     <div className="flex-1 relative min-h-[calc(100vh-4rem)]">
@@ -93,17 +108,30 @@ export default function Login() {
             </div>
 
             {/* Submit Button */}
-            <button
-              type='submit'
-              className="btn btn-outline btn-success mb-4">
+            {(loading || lock )? (
+              <Loader />
+            ) : (
+              <button
+                type="submit"
+                className="btn btn-outline btn-success mb-4"
+              >
+                Login
+              </button>
+            )}
 
-              Login
-            </button>
+            {
+              message && (
+                <p className="text-red-500 text-sm">{message}</p>
+              )
+            }
 
             {/* Register Link */}
             <p className="text-white text-sm">
-              Don&apos;t have an account?{' '}
-              <Link href="/signin" className="text-teal-300 hover:text-teal-400">
+              Don&apos;t have an account?{" "}
+              <Link
+                href="/signin"
+                className="text-teal-300 hover:text-teal-400"
+              >
                 Register
               </Link>
             </p>

@@ -38,13 +38,13 @@ export async function POST(req) {
 
       
 
-     const {name, task, date, time, priority} = await req.json();
+     const {name, task, date, time, priority,assignedTo} = await req.json();
         if (!task) {
             
             return NextResponse.json({ error: 'Task is required' }, { status: 500 })
         }
 
-        const newItem = await collection.insertOne({ name, task, date, time, priority });
+        const newItem = await collection.insertOne({ name, task, date, time, priority,assignedTo });
 
         return NextResponse.json({  message: "Task added successfully" }, { status: 201 })
     } catch (error) {
