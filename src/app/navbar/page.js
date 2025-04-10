@@ -59,12 +59,25 @@ const Navbar =  () => {
           >
             Home
           </Link>
-          <Link
+
+          {
+           ( session?.user?.role === "admin") ? (
+              <Link
             href={`/panel/home`}
             className="text-white hover:text-teal-500 transition-colors"
           >
             Dashboard
           </Link>
+            ):(
+              <Link
+            href={`/employeepanel/home`}
+            className="text-white hover:text-teal-500 transition-colors"
+          >
+            Dashboard
+          </Link>
+            )
+          }
+          
 
           <Link href="/ai-assistant" className="text-white hover:text-teal-500 transition-colors">
           AI-Assistant
