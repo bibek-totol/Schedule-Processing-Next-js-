@@ -4,6 +4,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import clientPromise from "../../../../../lib/mongodb";
 import GoogleProvider from "next-auth/providers/google";
+import GitHubProvider from "next-auth/providers/github";
 
 
 const handler = NextAuth({
@@ -17,12 +18,10 @@ const handler = NextAuth({
       async authorize(credentials) {
         const client = await clientPromise;
         const db = client.db("mydatabase");
-        console.log(credentials);
+        // console.log(credentials);
 
-        const user = await db
-          .collection("users")
-          .findOne({ email: credentials.email });
-        console.log(user);
+        const user = await db.collection("users").findOne({ email: credentials.email });
+        console.log("the user", user);
 
         if (!user || user.password !== credentials.password) {
           return null;
@@ -45,9 +44,47 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
 
-   
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET
+    })
+
   ],
   callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      if (account) {
+        try {
+          const { provider, providerAccountId } = account;
+          const { email: userEmail, image, name } = user;
+          const info = { userEmail, image, name, provider, providerAccountId };
+          // console.log("from singIn Callback for info ", info);
+          // console.log("from singIn Callback for user ", user);
+          // console.log("from singIn Callback for account ", account);
+          // console.log("from singIn Callback for profile ", profile);
+          // console.log("from singIn Callback for email ", email);
+          // console.log("from singIn Callback for credentials ",  credentials);
+
+
+          const client = await clientPromise;
+          const db = client.db("mydatabase");
+
+          const isExistingUser = await db.collection("users").findOne({ providerAccountId: info.providerAccountId })
+          // console.log("user does exist" , isExistingUser);
+
+          if (!isExistingUser) {
+            await db.collection("users").insertOne(info)
+          }
+
+
+        } catch (error) {
+          console.log(error);
+          return false
+        }
+
+      }
+      return true
+    },
+
     async session({ session, token }) {
       if (token) {
         if (token) {
@@ -61,6 +98,7 @@ const handler = NextAuth({
       return session;
     },
     async jwt({ token, user }) {
+
       if (user) {
         token.id = user.id;
         token.name = user.name;

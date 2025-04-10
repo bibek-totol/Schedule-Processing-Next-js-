@@ -1,20 +1,21 @@
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
-import { 
-  FiHome, 
-  FiUsers, 
-  FiMessageSquare, 
-  FiHelpCircle, 
-  FiSettings, 
-  FiLock 
+import { FaRegUser } from "react-icons/fa";
+import {
+  FiHome,
+  FiUsers,
+  FiMessageSquare,
+  FiHelpCircle,
+  FiSettings,
+  FiLock
 } from "react-icons/fi";
 import { VscSignOut } from "react-icons/vsc";
 import Swal from "sweetalert2";
 
 const Sidebar = ({ isSidebarOpen }) => {
 
-  
+
 
 
 
@@ -33,9 +34,8 @@ const Sidebar = ({ isSidebarOpen }) => {
 
   return (
     <div
-      className={`fixed h-screen w-64 bg-blue-900 text-white transition-all duration-300 ${
-        isSidebarOpen ? "w-20" : "w-64"
-      }`}
+      className={`fixed h-screen w-64 bg-blue-900 text-white transition-all duration-300 ${isSidebarOpen ? "w-20" : "w-64"
+        }`}
     >
       <div className="p-6">
         <div className="flex items-center space-x-2">
@@ -69,15 +69,15 @@ const Sidebar = ({ isSidebarOpen }) => {
 
         <li
           className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
-          // onClick={handleSignOut} 
-          
+        // onClick={handleSignOut} 
+
         >
-        
-<Link href='/panel/home'>
-          <div className="flex items-center p-4 space-x-2">
-            <FiHome className="text-xl" />
-            {!isSidebarOpen && <span>Dashboard</span>}
-          </div>
+
+          <Link href='/panel/home'>
+            <div className="flex items-center p-4 space-x-2">
+              <FiHome className="text-xl" />
+              {!isSidebarOpen && <span>Dashboard</span>}
+            </div>
           </Link>
         </li>
 
@@ -86,15 +86,15 @@ const Sidebar = ({ isSidebarOpen }) => {
 
         <li
           className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
-          // onClick={handleSignOut} 
-          
+        // onClick={handleSignOut} 
+
         >
-        
-<Link href='/panel/events'>
-          <div className="flex items-center p-4 space-x-2">
-            <FiMessageSquare  className="text-xl" />
-            {!isSidebarOpen && <span>Events</span>}
-          </div>
+
+          <Link href='/panel/events'>
+            <div className="flex items-center p-4 space-x-2">
+              <FiMessageSquare className="text-xl" />
+              {!isSidebarOpen && <span>Events</span>}
+            </div>
           </Link>
         </li>
 
@@ -102,33 +102,47 @@ const Sidebar = ({ isSidebarOpen }) => {
 
         <li
           className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
-          // onClick={handleSignOut} 
-          
+        // onClick={handleSignOut} 
+
         >
-        
-<Link href='/panel/eventmanagement'>
-          <div className="flex items-center p-4 space-x-2">
-          <FiHelpCircle className="text-xl" />
-            {!isSidebarOpen && <span>Event Management</span>}
-          </div>
+
+          <Link href='/panel/eventmanagement'>
+            <div className="flex items-center p-4 space-x-2">
+              <FiHelpCircle className="text-xl" />
+              {!isSidebarOpen && <span>Event Management</span>}
+            </div>
           </Link>
         </li>
 
-        
+        <li
+          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+        // onClick={handleSignOut} 
+
+        >
+
+          <Link href='/panel/profile'>
+            <div className="flex items-center p-4 space-x-2">
+              <FaRegUser className="text-xl" />
+              {!isSidebarOpen && <span>Profile</span>}
+            </div>
+          </Link>
+        </li>
+
+
 
 
 
 
         <li
           className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
-          onClick={handleSignOut} 
+          onClick={handleSignOut}
         >
           <div className="flex items-center p-4 space-x-2">
             <VscSignOut className="text-xl" />
             {!isSidebarOpen && <span>Sign Out</span>}
           </div>
         </li>
-        
+
       </ul>
     </div>
   );
