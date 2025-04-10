@@ -24,9 +24,52 @@ const handler = NextAuth({
           .findOne({ email: credentials.email });
         console.log(user);
 
-        if (!user || user.password !== credentials.password) {
+        if (!user) {
           return null;
         }
+
+
+
+        
+  const now = new Date();
+  if (user.lockUntil && user.lockUntil > now && user.failedAttempts>=3) {
+    
+    throw new Error("Account is temporarily locked. Try again later.");
+  }
+
+
+  if (user.lockUntil && user.lockUntil <= now) {
+   
+    await db.collection("users").updateOne(
+      { email: credentials.email },
+      { $set: { failedAttempts: 0, lockUntil: null } }
+    );
+  }
+
+
+  if (user.password !== credentials.password) {
+    let updateData = {
+      $inc: { failedAttempts: 1 },
+      $set: {},
+    };
+  
+    if (user.failedAttempts + 1 >= 3) {
+      const lockTime = new Date(Date.now() + 3 * 60 * 1000);
+      updateData.$set.lockUntil = lockTime;
+    }
+  
+    if (Object.keys(updateData.$set).length === 0) {
+      delete updateData.$set;
+    }
+  
+    await db.collection("users").updateOne({ email: credentials.email }, updateData);
+  
+    throw new Error("Invalid email or password.You can use 3 login attempts");
+  }
+  
+
+
+  
 
         return {
           id: user._id.toString(),

@@ -20,17 +20,29 @@ export async function POST(req) {
   }
 
 
+
+  const newUser = {
+    username,
+    email,
+    password,
+    photoURL,
+    role,
+    failedAttempts: 0,
+    lockUntil: null,
+  };
+
+
   if(role === "admin") {
     const duplicate_user = await db.collection("users").findOne({ email });
     if(duplicate_user){
       return new Response(JSON.stringify({ error: "Admin already exists" }), { status: 400 });
     }
-    await db.collection("users").insertOne({ username, email, password, photoURL,role });
+    await db.collection("users").insertOne(newUser);
 
   }
 
   else{
-    await db.collection("users").insertOne({ username, email, password, photoURL,role });
+    await db.collection("users").insertOne(newUser);
   }
 
 
