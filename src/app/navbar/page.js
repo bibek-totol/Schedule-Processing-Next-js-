@@ -12,10 +12,10 @@ const Navbar =  () => {
   let home="home";
 
 
-  console.log(session);
+  // console.log("credentials session",session);
 
-  console.log(session?.user);
-  console.log(session?.user?.image);
+  // console.log(session?.user);
+  // console.log(session?.user?.image);
 
 
   const handleSignOut = () => {
@@ -95,6 +95,15 @@ const Navbar =  () => {
           
 
           {session?.user ? (
+            
+           <>
+             <Link
+            className="text-white hover:text-teal-500 transition-colors"
+            href="/profile"
+          >
+            Profile
+          </Link>
+
             <Link
               onClick={handleSignOut}
               className="text-white hover:text-teal-500 transition-colors"
@@ -102,6 +111,7 @@ const Navbar =  () => {
             >
               Logout
             </Link>
+           </>
             
           ) : (
             <>
@@ -124,7 +134,7 @@ const Navbar =  () => {
           
         </div>
 
-        <div className="flex items-end"> 
+        <div className="flex items-center gap-3"> 
         <div className="">
           <img
             className="rounded-full w-10 h-10"
@@ -211,6 +221,15 @@ const Navbar =  () => {
               Logout
             </Link>
                   </li>
+
+                  <li>
+                  <Link
+              className="text-white hover:text-teal-500 transition-colors"
+              href="/profile"
+            >
+              Profile
+            </Link>
+                </li>
                 </>
               )
             }

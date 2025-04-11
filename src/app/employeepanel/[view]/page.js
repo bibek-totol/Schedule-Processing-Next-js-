@@ -11,6 +11,7 @@ import RecentCustomers from "@/app/components/RecentCustomers";
 import Calendar from "@/app/components/Calendar";
 import EventManagement from "@/app/components/EventManagement";
 import ADDTASK from "@/app/components/ADDTASK";
+import Profile from "@/app/components/Profile";
 
 
 export default function EmployeePanel({ params }) {
@@ -70,7 +71,7 @@ export default function EmployeePanel({ params }) {
         {view === "home" ? (
           <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 p-6">
             <RecentOrders />
-            <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 p-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
               <RecentGraph />
               <RecentCustomers />
             </div>
@@ -84,6 +85,10 @@ export default function EmployeePanel({ params }) {
         ) :  view === "addtasks" ? (
           <div className="p-6">
             <ADDTASK />
+          </div>
+        ): view === "profile" ? (
+          <div className="p-6">
+            <Profile />
           </div>
         ): (
           <div className="p-6 text-center text-xl font-semibold text-gray-600">

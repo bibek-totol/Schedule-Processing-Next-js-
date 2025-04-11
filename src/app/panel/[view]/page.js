@@ -11,6 +11,7 @@ import RecentGraph from "../../components/RecentGraph";
 import Calendar from "../../components/Calendar";
 import EventManagement from "@/app/components/EventManagement";
 import ADDTASK from "@/app/components/ADDTASK";
+import Profile from "@/app/components/Profile";
 
 export default function Panel({ params }) {
   const [view, setView] = useState(null);
@@ -83,6 +84,10 @@ export default function Panel({ params }) {
         ) :  view === "addtasks" ? (
           <div className="p-6">
             <ADDTASK />
+          </div>
+        ):view === "profile" ? (
+          <div className="p-6">
+            <Profile />
           </div>
         ): (
           <div className="p-6 text-center text-xl font-semibold text-gray-600">
