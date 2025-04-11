@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import React from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { IoIosNotifications } from "react-icons/io";
 
 const Topbar = ({ toggleSidebar }) => {
   const { data: session } = useSession();
@@ -25,6 +26,17 @@ const Topbar = ({ toggleSidebar }) => {
             name="search-outline"
             className="absolute left-3 top-2 text-gray-500"
           ></ion-icon>
+        </div>
+
+        <div>
+        <details className="dropdown">
+  <summary className="btn m-1"><IoIosNotifications className="text-3xl" /></summary>
+  <ul className="menu dropdown-content bg-gray-400 rounded-box z-1 w-52 p-2 shadow-sm">
+    <li><a>Admin Assigned Task to Bibek</a></li>
+    <li><a>Admin Assigned Task to Fahim</a></li>
+    <li><a>Admin Assigned Task to Babla Deye</a></li>
+  </ul>
+</details>
         </div>
 
         <div>
