@@ -26,7 +26,7 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
       icon: "success",
       title: "Success",
       text: "You have signed out successfully",
-      showConfirmButton: false,
+      showConfirmButton: true,
     });
   };
 

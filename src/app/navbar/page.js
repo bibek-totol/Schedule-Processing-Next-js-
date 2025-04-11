@@ -25,7 +25,7 @@ const Navbar =  () => {
         icon: "success",
         title: "Success",
         text: "You have signed out successfully",
-        showConfirmButton: false,
+        showConfirmButton: true,
 
       }
     )
