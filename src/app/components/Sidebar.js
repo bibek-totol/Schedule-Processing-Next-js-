@@ -1,18 +1,23 @@
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
+import { FaRegUser } from "react-icons/fa";
 import {
   FiHome,
   FiUsers,
   FiMessageSquare,
   FiHelpCircle,
   FiSettings,
-  FiLock,
+  FiLock
 } from "react-icons/fi";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { VscSignOut } from "react-icons/vsc";
 import Swal from "sweetalert2";
 import { useSession } from "next-auth/react";
+
+
+
+
 
 
 
@@ -26,7 +31,7 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
       icon: "success",
       title: "Success",
       text: "You have signed out successfully",
-      showConfirmButton: true,
+      showConfirmButton: false,
     });
   };
 
@@ -35,6 +40,7 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
       className={`fixed z-30 h-full transition-all md:translate-x-0 duration-300 ${
          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
        } md:w-64 w-64 bg-blue-900 text-white`}
+     
     >
       <div className="p-6">
         <div className="flex items-center space-x-2">
@@ -44,7 +50,9 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
            >
              <GiHamburgerMenu />
            </button>
+           <Link href="/" className="btn">
           <span className="text-xl font-bold">Schedule Pro</span>
+          </Link>
         </div>
       </div>
 
@@ -82,8 +90,14 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
             <div className="flex items-center p-4 space-x-2">
               <FiHome className="text-xl" />
               <span>Admin Dashboard</span>
+         
+
             </div>
           </Link>
+
+        
+
+          
         </li>
 
 
@@ -100,7 +114,10 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
             </div>
           </Link>
         </li>
+            
+            
 
+            
 
         <li
           className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
@@ -110,8 +127,10 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
             <div className="flex items-center p-4 space-x-2">
               <FiMessageSquare className="text-xl" />
               <span>Events</span>
+            
             </div>
           </Link>
+
         </li>
 
         <li
@@ -125,6 +144,27 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
             </div>
           </Link>
         </li>
+
+        
+
+
+        <li
+          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          
+        >
+
+          <Link href='/panel/profile'>
+            <div className="flex items-center p-4 space-x-2">
+              <FaRegUser className="text-xl" />
+              {!isSidebarOpen && <span>Profile</span>}
+            </div>
+          </Link>
+        </li>
+
+
+
+
+
 
         <li
           className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
@@ -160,11 +200,29 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
             <span>Sign Out</span>
           </div>
         </li>
+
+
+
+        <li
+          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          
+        >
+
+          <Link href='/employeepanel/profile'>
+            <div className="flex items-center p-4 space-x-2">
+              <FaRegUser className="text-xl" />
+              {!isSidebarOpen && <span>Profile</span>}
+            </div>
+          </Link>
+        </li>
+
+
             </>
           )
         }
 
         
+
       </ul>
     </div>
   );

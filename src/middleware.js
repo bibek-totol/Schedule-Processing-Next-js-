@@ -15,12 +15,12 @@ export const middleware = async (req) => {
   const isEmployeeRoute = path.startsWith("/employeepanel"); 
 
   
-  // if (isAdminRoute && !isAdminUser) {
-  //   const callbackUrl = encodeURIComponent(path);
-  //   return NextResponse.redirect(
-  //     new URL(`/login?callbackUrl=${callbackUrl}`, req.url)
-  //   );
-  // }
+  if (isAdminRoute && !isAdminUser) {
+    const callbackUrl = encodeURIComponent(path);
+    return NextResponse.redirect(
+      new URL(`/login?callbackUrl=${callbackUrl}`, req.url)
+    );
+  }
 
   
   if (isEmployeeRoute && !isEmployeeUser) {
