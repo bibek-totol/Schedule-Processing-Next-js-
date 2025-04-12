@@ -4,26 +4,30 @@ import { NextResponse } from "next/server";
 export const middleware = async (req) => {
   const token = await getToken({ req });
 
-  const isAdminUser = token?.role === "admin";
-  const isEmployeeUser = token?.role === "employee";
-  console.log("User role from token:", token?.role);
-
-
   const path = req.nextUrl.pathname;
 
-   const isAdminRoute = path.startsWith("/panel"); 
-  const isEmployeeRoute = path.startsWith("/employeepanel"); 
+  const isAdminRoute = path.startsWith("/panel");
+  const isEmployeeRoute = path.startsWith("/employeepanel");
 
-  
-  if (isAdminRoute && !isAdminUser) {
+  // If no token at all (unauthenticated), redirect to login
+  if (!token) {
     const callbackUrl = encodeURIComponent(path);
     return NextResponse.redirect(
       new URL(`/login?callbackUrl=${callbackUrl}`, req.url)
     );
   }
 
-  
-  if (isEmployeeRoute && !isEmployeeUser) {
+  const role = token?.role;
+
+  // Only redirect if user has token but wrong role
+  if (isAdminRoute && role !== "admin") {
+    const callbackUrl = encodeURIComponent(path);
+    return NextResponse.redirect(
+      new URL(`/login?callbackUrl=${callbackUrl}`, req.url)
+    );
+  }
+
+  if (isEmployeeRoute && role !== "employee") {
     const callbackUrl = encodeURIComponent(path);
     return NextResponse.redirect(
       new URL(`/login?callbackUrl=${callbackUrl}`, req.url)

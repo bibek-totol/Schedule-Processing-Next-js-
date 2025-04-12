@@ -18,13 +18,7 @@ export default function EmployeePanel({ params }) {
   const [views, setView] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // useEffect(() => {
-  //   const fetchParams = async () => {
-  //     const { view } = await params;
-  //     setView(view || "home");
-  //   };
-  //   fetchParams();
-  // }, [params]);
+
 
   const {view} = params;
 
