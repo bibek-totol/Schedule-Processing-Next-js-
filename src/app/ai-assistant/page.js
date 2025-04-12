@@ -53,19 +53,27 @@ const AIAssistant = () => {
             const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
                 method: "POST",
                 headers: {
-                    "Authorization": "Bearer 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",
+                    "Authorization": "Bearer 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",
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    "model": "deepseek/deepseek-r1:free",
+                    "model": "google/gemini-2.0-flash-thinking-exp:free",
                     "messages": [{
                         "role": "user",
-                        "content": `${(inputt.includes("What is") || inputt.includes("How to")) ? inputt : `What is ${inputt}`}`
+                        // "content": `${(inputt.includes("What is") || inputt.includes("How to")) ? inputt : `What is ${inputt}`}`
+                        "content": [
+                            {
+                               "type": "text",
+                                "text": `${(inputt.includes("What is") || inputt.includes("How to")) ? inputt : `What is ${inputt}`}`,
+                            }
+                        ]
                     }]
                 })
             });
 
             const responseData = await response.json();
+            console.log(responseData);
+            console.log
             setData(responseData);
 
             if (formRef.current) {
@@ -113,6 +121,8 @@ const AIAssistant = () => {
                                 Submit
                             </button>
                         )}
+
+                        
                     </form>
                 </div>
 
@@ -129,15 +139,12 @@ const AIAssistant = () => {
 
                 {data?.choices?.map((choice, index) => (
                     <React.Fragment key={index}>
-                        <div className='w-full lg:w-1/2'>
-                            <h1 className='text-2xl font-bold text-teal-300 mx-auto'>Reasoning</h1>
-                            <p className='mt-4 text-gray-400'>{choice.message.reasoning}</p>
-                        </div>
+                        
 
                         <div className="collapse bg-gray-600 w-full lg:w-1/2 border border-base-300">
                             <input type="radio" name="my-accordion-1" defaultChecked />
                             <div className="collapse-title font-semibold">
-                                {formatCodeResponse(choice.message.content)}
+                                {formatCodeResponse(choice?.message?.content)}
                             </div>
                         </div>
                     </React.Fragment>
