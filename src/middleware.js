@@ -10,24 +10,19 @@ export const middleware = async (req) => {
   const isEmployeeRoute = path.startsWith("/employeepanel");
 
   // If no token at all (unauthenticated), redirect to login
-  // if (!token) {
-  //   const callbackUrl = encodeURIComponent(path);
-  //   return NextResponse.redirect(
-  //     new URL(`/login?callbackUrl=${callbackUrl}`, req.url)
-  //   );
-  // }
-
-  const role = token?.role;
+ 
+  const role =await token?.role;
+  
 
   // Only redirect if user has token but wrong role
-  if (isAdminRoute && role !== "admin") {
+  if (isAdminRoute && role && role !== "admin") {
     const callbackUrl = encodeURIComponent(path);
     return NextResponse.redirect(
       new URL(`/login?callbackUrl=${callbackUrl}`, req.url)
     );
   }
 
-  if (isEmployeeRoute && role !== "employee") {
+  if (isEmployeeRoute && role && role !== "employee") {
     const callbackUrl = encodeURIComponent(path);
     return NextResponse.redirect(
       new URL(`/login?callbackUrl=${callbackUrl}`, req.url)
