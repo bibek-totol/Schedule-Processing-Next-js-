@@ -54,7 +54,11 @@ const AIAssistant = () => {
                 method: "POST",
                 headers: {
                     "Authorization": "Bearer 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",
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "HTTP-Referer": "https://schedule-processing-next-js.vercel.app/ai-assistant",
+                    "Origin": "https://schedule-processing-next-js.vercel.app"
+                    
+
                 },
                 body: JSON.stringify({
                     "model": "google/gemini-2.0-flash-thinking-exp:free",
