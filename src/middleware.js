@@ -10,12 +10,12 @@ export const middleware = async (req) => {
   const isEmployeeRoute = path.startsWith("/employeepanel");
 
   // If no token at all (unauthenticated), redirect to login
-  if (!token) {
-    const callbackUrl = encodeURIComponent(path);
-    return NextResponse.redirect(
-      new URL(`/login?callbackUrl=${callbackUrl}`, req.url)
-    );
-  }
+  // if (!token) {
+  //   const callbackUrl = encodeURIComponent(path);
+  //   return NextResponse.redirect(
+  //     new URL(`/login?callbackUrl=${callbackUrl}`, req.url)
+  //   );
+  // }
 
   const role = token?.role;
 
