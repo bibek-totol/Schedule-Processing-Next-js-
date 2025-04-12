@@ -15,16 +15,18 @@ import Profile from "@/app/components/Profile";
 
 
 export default function EmployeePanel({ params }) {
-  const [view, setView] = useState(null);
+  const [views, setView] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  useEffect(() => {
-    const fetchParams = async () => {
-      const { view } = await params;
-      setView(view || "home");
-    };
-    fetchParams();
-  }, [params]);
+  // useEffect(() => {
+  //   const fetchParams = async () => {
+  //     const { view } = await params;
+  //     setView(view || "home");
+  //   };
+  //   fetchParams();
+  // }, [params]);
+
+  const {view} = params;
 
   const { data: tasks = [], isLoading: tasksLoading } = useQuery({
     queryKey: ["tasks"],
