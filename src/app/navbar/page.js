@@ -97,12 +97,7 @@ const Navbar =  () => {
           {session?.user ? (
             
            <>
-             <Link
-            className="text-white hover:text-teal-500 transition-colors"
-            href="/profile"
-          >
-            Profile
-          </Link>
+            
 
             <Link
               onClick={handleSignOut}
@@ -222,14 +217,7 @@ const Navbar =  () => {
             </Link>
                   </li>
 
-                  <li>
-                  <Link
-              className="text-white hover:text-teal-500 transition-colors"
-              href="/profile"
-            >
-              Profile
-            </Link>
-                </li>
+                  
                 </>
               )
             }

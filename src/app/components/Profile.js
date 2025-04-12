@@ -1,15 +1,21 @@
 "use client"
 import { useSession, signOut, } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Swal from 'sweetalert2';
+import { ContextProvider } from '../AuthProviders/AuthProvider';
+import { UserIcon, MailIcon, Trash2Icon } from "lucide-react";
 
 const Profile = () => {
      
 
-    const { data: session , update} = useSession();
+    const { data: session } = useSession();
+    // const{name,email,image} = session?.user || {};
     console.log("the current session", session);
-    console.log(session?.user);
+    // console.log(name,email,image);
+    // const {users}= useContext(ContextProvider);
+    // const currentUser = users.find((user) => user?.email === session?.user?.email);
+    
     const router = useRouter();
 
     const handleDeleteUser = async () => {
@@ -57,91 +63,99 @@ const Profile = () => {
         });
     }
 
-    const handleUpdate = async e => {
-        e.preventDefault();
-
-        const form = new FormData(e.target);
-        const updatedUsername = form.get("name") || session.user.name;
-        const updatedPhotoURL = form.get("photo") || session.user.image;
-        const userEmail = session.user.email
-
-        // console.log(updatedUsername, updatedPhotoURL, userEmail );
-
-        const userInfo = {updatedUsername, updatedPhotoURL , userEmail}
-        console.log(userInfo);
+    // const handleUpdate = async (name,email,image) => {
         
-        try {
-            const res = await fetch("../api/update-user", {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(userInfo),
-            });
+    
+    
+    //     const { value: formValues } = await Swal.fire({
+    //         title: "Edit Profile",
+    //         html: `
 
-            console.log(res);
+    //         <div class="flex flex-col space-y-4">
+    //             <input id="swal-name" type="text" class="swal2-input" placeholder="Task Name" value="${name || ""}">
+    //             <input id="swal-email" type="email" class="swal2-input" placeholder="Task Description" value="${email || ""}">
+    //             <input id="swal-image" type="url" class="swal2-input" value="${image || ""}">
+                
 
-            await update() ; 
-        } catch (error) {
-            console.log(error);
-        }
-    }
 
+               
+    //         </div>
+    //         `,
+    //         focusConfirm: false,
+    //         showCancelButton: true,
+    //         confirmButtonText: "Update Profile",
+    //         preConfirm: () => {
+    //             return {
+    //                 name: document.getElementById("swal-name").value,
+    //                 email: document.getElementById("swal-email").value,
+    //                 image: document.getElementById("swal-image").value,
+                    
+    //             };
+    //         }
+    //     });
+    
+    //     if (!formValues) return; 
+    
+    //     try {
+    //         console.log(formValues);
+            
+    //         const result = await axios.patch(`/api/profileupdate/${email}`, formValues);
+    
+    //         console.log(result.data);
+    //         refetch();
+          
+    //         Swal.fire("Success!", "Task updated successfully", "success");
+            
+    //     } catch (err) {
+    //         console.error("Error editing task:", err);
+    //         Swal.fire("Error!", "Something went wrong while updating the task.", "error");
+    //     }
+    // };
 
 
     return (
-        <main className="mt-2 w-11/12 max-w-full mx-auto">
-            <div className="lg:my-20 md:w-10/12 lg:w-8/12 mx-auto border-2 border-teal-500/70 rounded-t-3xl">
-                <div className="bg-gradient-to-r from-teal-500 to-blue-300 py-4 rounded-t-3xl">
-                    <div className="container mx-auto border-2 border-teal-300 p-[2px] w-40 lg:w-56 rounded-full">
-                        <img className="w-40 h-40 md:w-56 md:h-56 rounded-[50%]"
-                            src={session?.user?.image ? session?.user?.image : "https://i.ibb.co.com/3z773GB/avatar.png"} alt="" />
-                    </div>
-                </div>
-                <div className='bg-gradient-to-br from-gray-200 to-teal-200'>
-                    <div className="mb-2 space-y-2">
-                        <div className="ml-2">
-                            <h3 className="text-lg md:text-xl"> <span className="font-medium md:font-semibold text-teal-500"> User Name
-                                {/* : </span> {user.displayName ? user.displayName : user.email.split("@")[0]}</h3> */}
-                                : </span> {session?.user?.name}</h3>
-                        </div>
-                        <div className="ml-2">
-                            <h3 className="text-lg md:text-xl"> <span className="font-medium md:font-semibold text-teal-500"> email
-                                : </span> {session?.user?.email} </h3>
-                        </div>
-                        <div className="ml-2 form-control mt-6 mb-2">
-                            <button onClick={handleDeleteUser}
-                                className="btn rounded-md bg-gradient-to-r from-red-800 to-red-400 hover:bg-red-900 text-white">Delete Profile</button>
-                        </div>
-                        <hr className="border border-teal-500" />
-                    </div>
-                    <form onSubmit={handleUpdate}
-                        className="card-body">
-                        <div className="form-control flex flex-col">
-                            <label className="label ml-2 mb-1">
-                                <span className="label-text">User Name </span>
-                            </label>
-                            <input type="text" placeholder="name" name="name" className="input input-bordered ml-2" />
-                        </div>
-                        <div className="form-control flex flex-col">
-                            <label className="label ml-2 mb-1">
-                                <span className="label-text">Photo URL </span>
-                            </label>
-                            <input type="text" placeholder="photo URL" name="photo" className="input input-bordered ml-2" />
-                        </div>
-                        <div className='flex gap-4'>
-                            <div className="form-control mt-6">
-                                <button className="btn rounded-md bg-gradient-to-r from-teal-400 to-blue-200 border-teal-300">
-                                    <span className="bg-gradient-to-r from-gray-800 to-stone-700 bg-clip-text text-transparent font-semibold">
-                                        Update
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </main>
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 to-white p-6">
+        
+      
+        
+      <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-8">
+      <img className='w-32 h-32 rounded-full mx-auto' src={session?.user?.image}/>
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">My Profile</h1>
+
+        {/* Username */}
+        <div className="flex items-center space-x-4 border-b pb-4 mb-4">
+          <div className="p-2 bg-indigo-100 rounded-full">
+            <UserIcon className="h-6 w-6 text-indigo-500" />
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Username</p>
+            <p className="text-lg font-semibold text-gray-800">{session?.user?.name}</p>
+          </div>
+        </div>
+
+        {/* Email */}
+        <div className="flex items-center space-x-4 border-b pb-4 mb-4">
+          <div className="p-2 bg-green-100 rounded-full">
+            <MailIcon className="h-6 w-6 text-green-500" />
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Email</p>
+            <p className="text-lg font-semibold text-gray-800">{session?.user?.email}</p>
+          </div>
+        </div>
+
+        {/* Delete Button */}
+        <div className="text-center">
+          <button
+            onClick={handleDeleteUser}
+            className="flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition-all duration-300"
+          >
+            <Trash2Icon className="h-5 w-5" />
+            Delete Account
+          </button>
+        </div>
+      </div>
+    </div>
     );
 };
 

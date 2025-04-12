@@ -12,6 +12,7 @@ export const middleware = async (req) => {
   // If no token at all (unauthenticated), redirect to login
  
   const role =await token?.role;
+  console.log(role);
   
 
   // Only redirect if user has token but wrong role
