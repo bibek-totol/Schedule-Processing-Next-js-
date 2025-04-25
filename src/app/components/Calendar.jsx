@@ -1,15 +1,23 @@
 
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { useSession } from "next-auth/react";
 
 export default function Calendar() {
   const { register, handleSubmit, reset } = useForm();
   const [events, setEvents] = useState([]);
+
+
+  const { data: session, status } = useSession();
+  console.log(session?.user?.name, status);
+
+
+
 
 
   const fetchEvents = async () => {
@@ -29,28 +37,61 @@ export default function Calendar() {
     fetchEvents();
   }, []);
 
+ 
+
   
   const onSubmit = async (data) => {
-  try {
-    console.log(data);
-    const response = await axios.post("/api/events", data);
+   
+    try {
 
-    
-    setEvents((prevEvents) => (Array.isArray(prevEvents) ? [...prevEvents, response.data.event] : [response.data.event]));
-    Swal.fire({
+
+
+      const now = new Date();
+      const start = new Date(data.start);
+      const end = new Date(data.end);
+      console.log(start, end);
+      console.log(now);
+  
+      if (start < now || end < now || start > end) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Start and end date must be in the future",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+       
+        return; 
+        
+      }
       
-      icon: "success",
-      title: "Event added successfully",
-      showConfirmButton: false,
-      timer: 1200
 
-    })
+      
+  
+      const response = await axios.post("/api/events", data);
+  
+      setEvents((prevEvents) =>
+        Array.isArray(prevEvents)
+          ? [...prevEvents, response.data.event]
+          : [response.data.event]
+      );
+  
+      Swal.fire({
+        icon: "success",
+        title: "Event added successfully",
+        showConfirmButton: false,
+        timer: 1200,
+      });
+  
+      reset();
+    } catch (error) {
+      console.error("Error adding event:", error);
+    }
+  };
+  
 
-    reset();
-  } catch (error) {
-    console.error("Error adding event:", error);
-  }
-};
+
+
 
 
   return (
@@ -59,8 +100,22 @@ export default function Calendar() {
         Event Calendar
       </h2>
 
-      {/* Event Form */}
+      
       <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-300 p-4 rounded-lg shadow-md mb-6 border border-blue-900">
+        
+        
+
+      <div className="mb-3">
+  <label className="block font-medium">Event Creator</label>
+  <input
+    type="text"
+    {...register("creator", { required: true })}
+    className="w-full border p-2 rounded-md"
+    defaultValue={session?.user?.name || ""}
+    readOnly
+  />
+</div>
+        
         <div className="mb-3">
           <label className="block font-medium">Event Name</label>
           <input

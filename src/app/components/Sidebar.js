@@ -17,10 +17,6 @@ import { useSession } from "next-auth/react";
 
 
 
-
-
-
-
 const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
 
   const { data: session, status } = useSession();
@@ -186,6 +182,35 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
             <div className="flex items-center p-4 space-x-2">
               <FiHome className="text-xl" />
               <span>Employee Dashboard</span>
+            </div>
+          </Link>
+        </li>
+
+
+        <li
+          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+      
+        >
+          <Link href="/employeepanel/events">
+            <div className="flex items-center p-4 space-x-2">
+              <FiMessageSquare className="text-xl" />
+              <span>Events</span>
+            
+            </div>
+          </Link>
+
+        </li>
+
+
+
+        <li
+          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          
+        >
+          <Link href="/employeepanel/eventmanagement">
+            <div className="flex items-center p-4 space-x-2">
+              <FiHelpCircle className="text-xl" />
+              <span>Event Management</span>
             </div>
           </Link>
         </li>
