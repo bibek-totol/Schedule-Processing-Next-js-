@@ -24,7 +24,7 @@ const Topbar = ({ toggleSidebar }) => {
     
   });
 
-  const filteredTask = tasks.filter((task) => task.assignedTo === session.user.name);
+  const filteredTask = tasks.filter((task) => task.assignedTo === session?.user?.name);
 
   return (
     <div className="bg-white p-4 shadow-md flex justify-between md:justify-end items-center">

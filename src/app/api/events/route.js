@@ -20,7 +20,7 @@ export async function GET() {
 export async function POST(req) {
   try {
     const body = await req.json(); 
-    const { title, start, end } = body;
+    const {creator, title, start, end } = body;
 
     const client = await clientPromise;
     console.log("Database connected:", client !== undefined);
@@ -28,7 +28,7 @@ export async function POST(req) {
     const db = client.db("mydatabase");
     const eventsCollection = db.collection("events");
 
-    const newEvent = { title, start, end };
+    const newEvent = { creator,title, start, end };
     await eventsCollection.insertOne(newEvent);
 
     return NextResponse.json({ message: "Event saved successfully", event: newEvent }, { status: 201 });

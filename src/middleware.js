@@ -9,10 +9,19 @@ export const middleware = async (req) => {
   const isAdminRoute = path.startsWith("/panel");
   const isEmployeeRoute = path.startsWith("/employeepanel");
 
-  // If no token at all (unauthenticated), redirect to login
+
  
   const role =await token?.role;
   console.log(role);
+
+
+  const isLoginPage = path === "/login" || path === "/signin";
+
+  
+  if (token && isLoginPage) {
+    return NextResponse.redirect(new URL("/logout", req.url));
+  }
+
   
 
   // Only redirect if user has token but wrong role

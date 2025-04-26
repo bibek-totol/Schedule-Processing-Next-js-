@@ -48,7 +48,7 @@ export async function PATCH(req,{params}){
             return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
         }
 
-        const { title,start,end} = await req.json();
+        const { creator,title,start,end} = await req.json();
         if (!title || !start || !end) {
             return NextResponse.json({ error: "Event is required" }, { status: 400 });
         }
@@ -56,7 +56,7 @@ export async function PATCH(req,{params}){
         const query = { _id: new ObjectId(id) };
 
         const updatedItem = await collection.updateOne(query, { $set: { 
-            title,start,end
+            creator,title,start,end
          } });
 
 
