@@ -4,13 +4,38 @@ import React, { useState, useEffect, use } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import axios from "axios";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useSession } from "next-auth/react";
+import { FaMicrophone } from "react-icons/fa";
+import { useVoiceToText } from "react-speakup";
+import { MdClear } from "react-icons/md";
+
 
 export default function Calendar() {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, setValue } = useForm();
   const [events, setEvents] = useState([]);
+  const [isListening, setIsListening] = useState(false);
+  const { startListening, stopListening, reset: resetTranscript, transcript } = useVoiceToText();
+  
+
+ 
+  
+  console.log( transcript);
+
+  useEffect(() => {
+    if (!isListening && transcript) {
+      setValue("title", transcript);
+    }
+  }, [isListening, transcript, setValue]);
+  
+
+
+
+
+  
+
+
 
 
   const { data: session, status } = useSession();
@@ -41,29 +66,31 @@ export default function Calendar() {
 
   
   const onSubmit = async (data) => {
+    const now = new Date();
+    const start = new Date(data.start);
+    const end = new Date(data.end);
+    console.log(start, end);
+    console.log(now);
+
+    if (start < now || end < now || start > end) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Start and end date must be in the future and start date must be before end date",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+     
+      
+      return; 
+      
+    }
    
     try {
 
 
 
-      const now = new Date();
-      const start = new Date(data.start);
-      const end = new Date(data.end);
-      console.log(start, end);
-      console.log(now);
-  
-      if (start < now || end < now || start > end) {
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Start and end date must be in the future",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-       
-        return; 
-        
-      }
+     
       
 
       
@@ -116,14 +143,52 @@ export default function Calendar() {
   />
 </div>
         
-        <div className="mb-3">
-          <label className="block font-medium">Event Name</label>
-          <input
-            type="text"
-            {...register("title", { required: true })}
-            className="w-full border p-2 rounded-md"
-          />
-        </div>
+       
+
+
+        <div className="mb-3 relative">
+  <label className="block font-medium">Event Name</label>
+  <input
+    type="text"
+    {...register("title", { required: true })}
+    className="w-full border p-2 rounded-md pr-10"
+    placeholder="Enter event name"
+
+    
+  />
+ <FaMicrophone
+  className={`absolute right-3 top-9 text-xl cursor-pointer ${
+    isListening ? "text-red-500 animate-pulse" : "text-gray-700"
+  }`}
+  onClick={() => {
+    if (isListening) {
+      stopListening();
+     
+    } else {
+     
+      startListening();
+    
+      
+
+    }
+    setIsListening(!isListening);
+  }}
+  title={isListening ? "Listening..." : "Click to speak"}
+/>
+
+<MdClear
+  className="absolute right-10 top-9 text-xl cursor-pointer text-gray-700"
+  onClick={() => {
+    resetTranscript();
+    setValue("title", "");
+  }}
+  title="Clear"
+ />
+
+
+</div>
+
+
 
         <div className="mb-3">
           <label className="block font-medium">Start Date</label>
