@@ -55,7 +55,7 @@ const Topbar = ({ toggleSidebar }) => {
           role === "employee" && (
             <div>
         <details className="dropdown ">
-  <summary className="btn m-1"><IoIosNotifications className="text-3xl" />{filteredTask.length}</summary>
+  <summary className="btn m-1"><IoIosNotifications className="text-3xl text-accent" />{filteredTask.length}</summary>
   <ul className="menu dropdown-content bg-gray-100 rounded-box z-1 w-40 lg:w-96  p-4 shadow-sm">
   {
     filteredTask.map((task) => (
