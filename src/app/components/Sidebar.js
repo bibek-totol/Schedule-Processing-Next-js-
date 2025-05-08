@@ -14,10 +14,13 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { VscSignOut } from "react-icons/vsc";
 import Swal from "sweetalert2";
 import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 
 
 
 const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
+
+  const pathname = usePathname();
 
   const { data: session, status } = useSession();
   const role = session?.user?.role;
@@ -79,7 +82,7 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
           role === "admin" ?(
             <>
             <li
-          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          className={`hover:bg-gray-500 hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer ${pathname === "/panel/home" ? "bg-white text-blue-900" : ""}`}
           
         >
           <Link href="/panel/home">
@@ -100,7 +103,7 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
 
 
         <li
-          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          className={`hover:bg-gray-500 hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer ${pathname === "/panel/addtasks" ? "bg-white text-blue-900" : ""}`}
       
         >
           <Link href="/panel/addtasks">
@@ -116,7 +119,7 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
             
 
         <li
-          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          className={`hover:bg-gray-500 hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer ${pathname === "/panel/events" ? "bg-white text-blue-900" : ""}`}
       
         >
           <Link href="/panel/events">
@@ -130,7 +133,7 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
         </li>
 
         <li
-          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          className={`hover:bg-gray-500 hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer ${pathname === "/panel/eventmanagement" ? "bg-white text-blue-900" : ""}`}
           
         >
           <Link href="/panel/eventmanagement">
@@ -145,7 +148,7 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
 
 
         <li
-          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          className={`hover:bg-gray-500 hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer ${pathname === "/panel/profile" ? "bg-white text-blue-900" : ""}`}
           
         >
 
@@ -163,7 +166,7 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
 
 
         <li
-          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          className="hover:bg-gray-500 hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
           onClick={handleSignOut}
         >
           <div className="flex items-center p-4 space-x-2">
@@ -175,7 +178,9 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
           ):(
             <>
             <li
-          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          className={
+            `hover:bg-gray-500 hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer ${pathname === "/employeepanel/home" ? "bg-white text-blue-900" : ""}`
+          }
           
         >
           <Link href="/employeepanel/home">
@@ -188,13 +193,13 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
 
 
         <li
-          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          className={`hover:bg-gray-500 hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer ${pathname === "/employeepanel/events" ? "bg-white text-blue-900" : ""}`}
       
         >
           <Link href="/employeepanel/events">
             <div className="flex items-center p-4 space-x-2">
               <FiMessageSquare className="text-xl" />
-              <span>Events</span>
+              <span>ADD Events</span>
             
             </div>
           </Link>
@@ -202,22 +207,21 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
         </li>
 
 
-
         <li
-          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          className={`hover:bg-gray-500 hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer ${pathname === "/employeepanel/eventmanagement" ? "bg-white text-blue-900" : ""}`}
           
         >
           <Link href="/employeepanel/eventmanagement">
             <div className="flex items-center p-4 space-x-2">
               <FiHelpCircle className="text-xl" />
-              <span>Event Management</span>
+              <span>My Events</span>
             </div>
           </Link>
         </li>
 
 
         <li
-          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          className="hover:bg-gray-500 hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
           onClick={handleSignOut}
         >
           <div className="flex items-center p-4 space-x-2">
@@ -229,7 +233,7 @@ const Sidebar = ({ isSidebarOpen,toggleSidebar }) => {
 
 
         <li
-          className="hover:bg-white hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer"
+          className={`hover:bg-gray-500 hover:text-blue-900 rounded-l-full transition-all duration-200 cursor-pointer ${pathname === "/employeepanel/profile" ? "bg-white text-blue-900" : ""}`}
           
         >
 
