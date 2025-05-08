@@ -2,6 +2,7 @@
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Swal from "sweetalert2";
 
@@ -10,12 +11,10 @@ const Navbar =  () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: session } = useSession();
   let home="home";
+  const pathname = usePathname();
 
 
-  // console.log("credentials session",session);
-
-  // console.log(session?.user);
-  // console.log(session?.user?.image);
+  
 
 
   const handleSignOut = () => {
@@ -55,7 +54,7 @@ const Navbar =  () => {
         <div className="hidden md:flex space-x-6">
           <Link
             href="/"
-            className="text-white hover:text-teal-500 transition-colors"
+            className={`text-white hover:text-blue-500 transition-colors ${pathname === "/" ? "bg-teal-500 px-2 py-2 rounded-md " : " px-2 py-2"}`}
           >
             Home
           </Link>
@@ -64,14 +63,14 @@ const Navbar =  () => {
            ( session?.user?.role === "admin") ? (
               <Link
             href={`/panel/home`}
-            className="text-white hover:text-teal-500 transition-colors"
+            className={`text-white hover:text-blue-500 transition-colors ${pathname === "/panel/home" ? "bg-teal-500 px-3 py-2 rounded-md " : "px-2 py-2"}`}
           >
             Dashboard
           </Link>
             ):(
               <Link
             href={`/employeepanel/home`}
-            className="text-white hover:text-teal-500 transition-colors"
+            className={`text-white hover:text-blue-500 transition-colors ${pathname === "/employeepanel/home" ? "bg-teal-500 px-3 py-2 rounded-md " : "px-2 py-2"}`}
           >
             Dashboard
           </Link>
@@ -79,7 +78,7 @@ const Navbar =  () => {
           }
           
 
-          <Link href="/ai-assistant" className="text-white hover:text-teal-500 transition-colors">
+          <Link href="/ai-assistant" className={`text-white hover:text-blue-500 transition-colors ${pathname === "/ai-assistant" ? "bg-teal-500 px-3 py-2 rounded-md " : "px-2 py-2"}`}>
           AI-Assistant
           </Link>
         
@@ -101,7 +100,7 @@ const Navbar =  () => {
 
             <Link
               onClick={handleSignOut}
-              className="text-white hover:text-teal-500 transition-colors"
+              className="text-white hover:text-blue-500 transition-colors px-2 py-2"
               href="#"
             >
               Logout
@@ -111,14 +110,14 @@ const Navbar =  () => {
           ) : (
             <>
               <Link
-                className="text-white hover:text-teal-500 transition-colors"
+                className={`text-white hover:text-blue-500 transition-colors ${pathname === "/signin" ? "bg-teal-500 px-3 py-2 rounded-md " : "px-2 py-2"}`}
                 href="/signin"
               >
                 Signup
               </Link>
 
               <Link
-                className="text-white hover:text-teal-500 transition-colors"
+                className={`text-white hover:text-blue-500 transition-colors ${pathname === "/login" ? "bg-teal-500 px-3 py-2 rounded-md " : "px-2 py-2"}`}
                 href="/login"
               >
                 Login
@@ -184,7 +183,7 @@ const Navbar =  () => {
         <div className="md:hidden bg-blue-900 shadow-md">
           <ul className="menu menu-sm dropdown-content bg-blue-900 rounded-box z-10 mt-3 w-52 p-2 shadow">
             <li>
-              <Link className="text-white hover:text-teal-500 transition-colors" href="/" onClick={() => setIsOpen(false)}>
+              <Link className={`text-white hover:text-blue-500 transition-colors ${pathname === "/" ? "bg-teal-500 px-3 py-2 rounded-md " : "px-2 py-2"}`} href="/" onClick={() => setIsOpen(false)}>
                 Home
               </Link>
             </li>
@@ -194,13 +193,13 @@ const Navbar =  () => {
               !session?.user ? (
                 <>
                 <li>
-              <Link className="text-white hover:text-teal-500 transition-colors" href="/signin" onClick={() => setIsOpen(false)}>
+              <Link className={`text-white hover:text-blue-500 transition-colors ${pathname === "/signin" ? "bg-teal-500 px-3 py-2 rounded-md " : "px-2 py-2"}`} href="/signin" onClick={() => setIsOpen(false)}>
                 Signup
               </Link>
             </li>
             <li>
               <Link
-              className="text-white hover:text-teal-500 transition-colors" href="/login" onClick={() => setIsOpen(false)}>
+              className={`text-white hover:text-blue-500 transition-colors ${pathname === "/login" ? "bg-teal-500 px-3 py-2 rounded-md " : "px-2 py-2"}`} href="/login" onClick={() => setIsOpen(false)}>
                 Login
               </Link>
             </li>
@@ -210,7 +209,7 @@ const Navbar =  () => {
                   <li>
                   <Link
               onClick={handleSignOut}
-              className="text-white hover:text-teal-500 transition-colors"
+              className="text-white hover:text-blue-500 transition-colors px-2 py-2"
               href="#"
             >
               Logout
@@ -226,7 +225,7 @@ const Navbar =  () => {
             <li>
               <Link
                 href="/panel"
-                className="text-white hover:text-teal-500 transition-colors"
+                className={`text-white hover:text-blue-500 transition-colors ${pathname === "/panel" ? "bg-teal-500 px-3 py-2 rounded-md " : "px-2 py-2"}`}
               >
                 Dashboard
               </Link>
@@ -235,7 +234,7 @@ const Navbar =  () => {
             <li>
               <Link
                 href="/ai-assistant"
-                className="text-white hover:text-teal-500 transition-colors"
+                className={`text-white hover:text-blue-500 transition-colors ${pathname === "/ai-assistant" ? "bg-teal-500 px-3 py-2 rounded-md " : "px-2 py-2"}`}
               >
                 AI-Assistant
               </Link>
