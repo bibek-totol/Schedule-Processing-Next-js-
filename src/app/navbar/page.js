@@ -82,6 +82,10 @@ const Navbar =  () => {
           AI-Assistant
           </Link>
         
+          <Link href="/contact" className={`text-white hover:text-blue-500 transition-colors ${pathname === "/contact" ? "bg-teal-500 px-3 py-2 rounded-md " : "px-2 py-2"}`}>
+          Contact Us
+          </Link>
+        
 
         
           
@@ -238,6 +242,13 @@ const Navbar =  () => {
               >
                 AI-Assistant
               </Link>
+            </li>
+
+            <li>
+
+            <Link href="/contact" className={`text-white hover:text-blue-500 transition-colors ${pathname === "/contact" ? "bg-teal-500 px-3 py-2 rounded-md " : "px-2 py-2"}`}>
+          Contact Us
+          </Link>
             </li>
 
 
