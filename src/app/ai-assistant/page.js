@@ -53,22 +53,22 @@ const AIAssistant = () => {
             const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
                 method: "POST",
                 headers: {
-                    "Authorization": "Bearer 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",
+                    "Authorization": "Bearer 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",
                     "Content-Type": "application/json",
-                    "HTTP-Referer": "https://schedule-processing-next-js.vercel.app/ai-assistant",
+                    "HTTP-Referer": "https://schedule-processing-next-js.vercel.app",
                     "Origin": "https://schedule-processing-next-js.vercel.app"
                     
 
                 },
                 body: JSON.stringify({
-                    "model": "google/gemini-2.0-flash-thinking-exp:free",
+                    "model": "google/gemini-2.0-flash-exp:free",
                     "messages": [{
                         "role": "user",
                         // "content": `${(inputt.includes("What is") || inputt.includes("How to")) ? inputt : `What is ${inputt}`}`
                         "content": [
                             {
                                "type": "text",
-                                "text": `${(inputt.includes("What is") || inputt.includes("How to")) ? inputt : `What is ${inputt}`}`,
+                                "text": `${(inputt.includes("What is") || inputt.includes("How to")) ? inputt : `What is ${inputt} `}`,
                             }
                         ]
                     }]
@@ -93,7 +93,7 @@ const AIAssistant = () => {
     }
 
     return (
-        <div className='min-h-[100vh] mt-10 p-8 bg-[#292A2D]'>
+        <div className='min-h-[100vh] mt-10 p-8 bg-[#E2E0FF]'>
             <div className='flex flex-col items-center justify-center gap-8'>
                 <div>
                     <div className='flex gap-x-4'>
@@ -103,14 +103,14 @@ const AIAssistant = () => {
                 </div>
 
                 <div>
-                    <p className='text-2xl font-bold text-teal-300'>How can I help you today?</p>
+                    <p className='text-2xl font-bold text-teal-500'>How can I help you today?</p>
                 </div>
 
                 <div className='mt-10 w-full lg:w-1/2 mx-auto'>
                     <form ref={formRef} onSubmit={handleSubmit}>
                         <textarea 
                             name='inputt' 
-                            className='w-full h-32 text-white p-4 bg-gray-600 border border-gray-300 rounded-md resize-none focus:outline-none focus:border-teal-500'
+                            className='w-full h-32 text-white p-4 bg-gray-500 border border-gray-300 rounded-md resize-none focus:outline-none focus:border-teal-500'
                             placeholder='Type your question here...'
                             disabled={loading}
                         />
@@ -145,7 +145,7 @@ const AIAssistant = () => {
                     <React.Fragment key={index}>
                         
 
-                        <div className="collapse bg-gray-600 w-full lg:w-1/2 border border-base-300">
+                        <div className="collapse bg-gray-500 w-full lg:w-1/2 border border-base-300">
                             <input type="radio" name="my-accordion-1" defaultChecked />
                             <div className="collapse-title font-semibold">
                                 {formatCodeResponse(choice?.message?.content)}

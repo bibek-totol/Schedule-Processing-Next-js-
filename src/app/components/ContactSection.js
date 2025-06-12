@@ -4,16 +4,16 @@ import { FaPhone, FaUser, FaEnvelope, FaPen, FaComment } from 'react-icons/fa';
 export default function ContactSection() {
   return (
     <section className="w-full">
-      {/* Header Section */}
-      <div className="relative bg-black text-white text-center py-16 bg-cover bg-center" style={{ backgroundImage: "url('/solar-bg.jpg')" }}>
-        <h1 className="text-4xl md:text-5xl font-bold">Contact Us</h1>
+      
+      <div className="relative bg-[#101828] text-white text-center py-16 bg-cover bg-center" style={{ backgroundImage: "url('/solar-bg.jpg')" }}>
+        <h1 className="text-4xl md:text-5xl font-bold mt-2">Contact Us</h1>
         <p className="text-sm mt-2">Your valuable ideas will always help us to grow</p>
       </div>
 
-      {/* Contact Content Section */}
+      
       <div className="bg-gradient-to-r from-blue-100 to-purple-200 py-16 px-4 md:px-12">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-10">
-          {/* Left: Quote Section */}
+        
           <div className="flex-1">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Get Your Instant Free<br />Quote Now</h2>
             
@@ -28,7 +28,7 @@ export default function ContactSection() {
             </div>
           </div>
 
-          {/* Right: Contact Form */}
+    
           <div className="flex-1 bg-white p-8 rounded-2xl shadow-lg space-y-4">
             <div className="flex items-center border-b border-gray-300 py-2">
               <FaUser className="mr-3 text-gray-500" />
