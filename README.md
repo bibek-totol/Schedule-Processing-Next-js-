@@ -36,3 +36,147 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+
+# Schedule Processing Application
+
+## Introduction
+
+Welcome to the **Schedule Processing Application**! This project is built with modern technologies such as **Next.js**, **MongoDB**, **Tailwind CSS**, **Express**, and **JWT** to provide an intuitive and secure platform for managing tasks, events, and team member activities. The application is designed to allow administrators and employees to collaborate effectively, manage tasks, add and manage events, and maintain a secure and organized workflow. It also features an AI-powered chatbot to assist users.
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Examples](#examples)
+- [Troubleshooting](#troubleshooting)
+- [Contributors](#contributors)
+- [License](#license)
+
+## Features
+
+- **Admin Dashboard**: Manage tasks, events, and view team progress in an intuitive interface.
+- **Employee Panel**: View assigned tasks and events, track progress, and update task statuses.
+- **Task Management**: Add, edit, and manage tasks for team members.
+- **Event Management**: Add events using an integrated calendar and manage event details.
+- **Profile Page**: Personalized profile for each user to update their information.
+- **Print Page for Admin**: Print the details of the Admin dashboard.
+- **Contact Us Page**: A page for users to contact the admin or support.
+- **AI Chatbot**: An intelligent assistant to help users with common queries.
+- **Protected Routes**: Middleware-based token authentication to ensure secure access.
+- **Password Reset**: Functionality for users to reset their passwords.
+- **OAuth Authentication**: Google and GitHub login integrations.
+- **Responsive and Beautiful UI**: A modern and visually appealing interface, powered by **Tailwind CSS**.
+
+## Technologies Used
+
+- **Next.js**: A powerful React framework for building server-side rendered (SSR) applications.
+- **MongoDB**: NoSQL database used to store user data, tasks, events, and more.
+- **Tailwind CSS**: A utility-first CSS framework for building custom designs without writing custom CSS.
+- **Express**: Node.js web application framework for handling the back-end logic.
+- **JWT (JSON Web Tokens)**: For secure authentication and authorization, ensuring protected routes.
+- **Google and GitHub OAuth**: For authentication via Google and GitHub accounts.
+
+## Installation
+
+To set up the **Schedule Processing Application** locally, follow these steps:
+
+### Prerequisites
+
+- Node.js (version 14 or higher)
+- MongoDB (local or cloud instance)
+- npm or yarn package manager
+
+### Steps
+
+1. **Clone the Repository**:
+    ```bash
+    git clone https://github.com/your-username/schedule-processing-application.git
+    cd schedule-processing-application
+    ```
+
+2. **Install Dependencies**:
+    Install the required packages using npm or yarn:
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+
+3. **Set Up Environment Variables**:
+    Create a `.env.local` file in the root directory of the project and add the necessary variables, such as your MongoDB URI, JWT secret, and OAuth credentials:
+    ```env
+    MONGODB_URI=your_mongodb_connection_string
+    JWT_SECRET=your_jwt_secret_key
+    GOOGLE_CLIENT_ID=your_google_oauth_client_id
+    GOOGLE_CLIENT_SECRET=your_google_oauth_client_secret
+    GITHUB_CLIENT_ID=your_github_oauth_client_id
+    GITHUB_CLIENT_SECRET=your_github_oauth_client_secret
+    ```
+
+4. **Run the Application**:
+    After setting up your environment variables, you can start the application by running:
+    ```bash
+    npm run dev
+    # or
+    yarn dev
+    ```
+
+    The application will now be accessible at `http://localhost:3000`.
+
+## Usage
+
+Once the application is running, you can:
+
+1. **Log In**: Use your Google or GitHub account to log in to the system.
+2. **Admin Panel**: As an admin, you can manage tasks, events, and user profiles. You can also view team progress and print reports.
+3. **Employee Panel**: Employees can view their assigned tasks, track progress, and update task status. It also shows upcoming events that they are part of.
+4. **AI Chatbot**: Use the integrated chatbot to ask common questions and get immediate assistance.
+
+## Configuration
+
+You can customize the application further by modifying the following:
+
+- **MongoDB Configuration**: Change your database connection in the `.env.local` file.
+- **JWT Secret**: Update your JWT secret key for token-based security in `.env.local`.
+
+
+## Examples
+
+### Admin Dashboard
+The Admin dashboard provides a comprehensive view of all tasks, team members, and events. You can add new tasks, edit existing ones, and assign them to employees. You can also manage events via the event calendar and ensure smooth operations.
+
+### Employee Panel
+The Employee panel allows employees to view tasks assigned to them, track their progress, and update task status. It also shows upcoming events that they are part of.
+
+### AI Chatbot
+The AI Chatbot can assist users by answering frequently asked questions, providing tips, or guiding users through common processes in the app.
+
+## Troubleshooting
+
+- **Issue: MongoDB connection failed**
+  - Ensure that your MongoDB URI is correctly set in the `.env.local` file and that your MongoDB instance is running.
+  
+- **Issue: JWT authentication errors**
+  - Verify that your JWT secret key is properly configured in the `.env.local` file.
+  
+- **Issue: Google/GitHub login not working**
+  - Double-check your OAuth credentials and ensure the correct callback URLs are set in your Google and GitHub Developer settings.
+
+## Contributors
+
+We would like to thank all the contributors for their hard work on this project. If you'd like to contribute, please open an issue or submit a pull request.
+
+- [Your Name](https://github.com/your-username)
+
+
+
+---
+
+Enjoy using the **Schedule Processing Application**! If you have any questions or issues, feel free to reach out via the Contact Us page or open an issue on GitHub.
+
