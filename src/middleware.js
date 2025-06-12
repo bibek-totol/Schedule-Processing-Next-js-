@@ -22,6 +22,14 @@ export const middleware = async (req) => {
     return NextResponse.redirect(new URL("/logout", req.url));
   }
 
+
+  if ((isAdminRoute || isEmployeeRoute) && !token) {
+    const callbackUrl = encodeURIComponent(path);
+    return NextResponse.redirect(
+      new URL(`/login?callbackUrl=${callbackUrl}`, req.url)
+    );
+  }
+
   
 
   // Only redirect if user has token but wrong role
