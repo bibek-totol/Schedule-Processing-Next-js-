@@ -111,12 +111,22 @@ To set up the **Schedule Processing Application** locally, follow these steps:
 3. **Set Up Environment Variables**:
     Create a `.env.local` file in the root directory of the project and add the necessary variables, such as your MongoDB URI, JWT secret, and OAuth credentials:
     ```env
-    MONGODB_URI=your_mongodb_connection_string
-    JWT_SECRET=your_jwt_secret_key
-    GOOGLE_CLIENT_ID=your_google_oauth_client_id
-    GOOGLE_CLIENT_SECRET=your_google_oauth_client_secret
-    GITHUB_CLIENT_ID=your_github_oauth_client_id
-    GITHUB_CLIENT_SECRET=your_github_oauth_client_secret
+    DB_USER= ?
+    DB_PASS= ?
+    NEXTAUTH_SECRET= ?
+    NEXTAUTH_URL= ?
+    GOOGLE_CLIENT_ID = ?
+    GOOGLE_CLIENT_SECRET = ?
+    EMAIL_USER = ?
+    EMAIL_PASS = ?
+    JWT_SECRET = ?
+   GITHUB_ID = ?
+   GITHUB_SECRET= ?
+   OPENROUTER_API_KEY= ?
+
+
+
+
     ```
 
 4. **Run the Application**:
@@ -157,22 +167,16 @@ The Employee panel allows employees to view tasks assigned to them, track their 
 ### AI Chatbot
 The AI Chatbot can assist users by answering frequently asked questions, providing tips, or guiding users through common processes in the app.
 
-## Troubleshooting
 
-- **Issue: MongoDB connection failed**
-  - Ensure that your MongoDB URI is correctly set in the `.env.local` file and that your MongoDB instance is running.
-  
-- **Issue: JWT authentication errors**
-  - Verify that your JWT secret key is properly configured in the `.env.local` file.
-  
-- **Issue: Google/GitHub login not working**
-  - Double-check your OAuth credentials and ensure the correct callback URLs are set in your Google and GitHub Developer settings.
 
 ## Contributors
 
 We would like to thank all the contributors for their hard work on this project. If you'd like to contribute, please open an issue or submit a pull request.
 
-- [Your Name](https://github.com/your-username)
+- [Bibek Bhowmick](https://github.com/bibekbowmick2-2)
+- [Babla Dey](https://github.com/babladey275)
+- [Tazwoar](https://github.com/TazwoarCommits)
+- [Uzzal](https://github.com/mohammaduzzal)
 
 
 
