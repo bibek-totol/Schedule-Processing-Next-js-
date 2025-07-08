@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import Navbar from "./navbar/page";
 import Footer from "./footer/page";
+import { Suspense } from "react";
 
 export default function ClientLayout({ children }) {
   const pathname = usePathname();
@@ -19,7 +20,9 @@ export default function ClientLayout({ children }) {
     <>
       {(!hideNavbarFooter || hideFooter) && <Navbar />}
 
+   <Suspense fallback={<div className="flex justify-center items-center text-3xl">Loading...</div>}>
       {children}
+    </Suspense>
 
       {!hideNavbarFooter && !hideFooter && <Footer />}
     </>
