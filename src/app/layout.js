@@ -1,13 +1,11 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-import ClientLayout from "./ClientLayout"; // Import the client component
+import ClientLayout from "./ClientLayout"; 
 import NextAuthProvider from "@/Providers/NextAuthProvider";
-import Navbar from "./navbar/page";
-import Footer from "./footer/page";
 import { Prov } from "./prov";
 import AuthProvider from "./AuthProviders/AuthProvider";
-// import { Cakra } from "./cakra";
+
 
 
 const geistSans = Geist({
@@ -40,15 +38,10 @@ export default function RootLayout({ children }) {
           <AuthProvider> 
         <NextAuthProvider>
       
-        {/* <Cakra> */}
-    
-          {/* <Navbar /> */}
          
           <ClientLayout>{children}</ClientLayout>
           
-          {/* <Footer /> */}
-          {/* </Cakra> */}
-      
+         
          
           </NextAuthProvider>
           </AuthProvider>

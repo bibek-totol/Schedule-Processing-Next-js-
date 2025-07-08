@@ -21,7 +21,7 @@ const AIAssistant = () => {
                 const code = languageMatch ? part.replace(languageMatch[0], '') : part;
                 
                 return (
-                    <div key={index} className="bg-gray-800 rounded-lg p-4 my-4 overflow-x-auto">
+                    <div key={index} className="bg-gray-500 rounded-lg p-4 my-4 overflow-x-auto">
                         <div className="text-gray-400 text-sm mb-2">{language || 'code'}</div>
                         <pre className="text-gray-100 whitespace-pre-wrap">
                             <code>{code}</code>
@@ -53,7 +53,7 @@ const AIAssistant = () => {
             const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
                 method: "POST",
                 headers: {
-                    "Authorization": "Bearer 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",
+                    "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
                     "Content-Type": "application/json",
                     "HTTP-Referer": "https://schedule-processing-next-js.vercel.app",
                     "Origin": "https://schedule-processing-next-js.vercel.app"
@@ -91,6 +91,7 @@ const AIAssistant = () => {
             setLoading(false);
         }
     }
+
 
     return (
         <div className='min-h-[100vh] mt-10 p-8 bg-[#E2E0FF]'>
