@@ -23,7 +23,7 @@ export const middleware = async (req) => {
   }
 
 
-  if ((isAdminRoute || isEmployeeRoute) && !token) {
+  if ((isAdminRoute || isEmployeeRoute) && role === undefined) {
     const callbackUrl = encodeURIComponent(path);
     return NextResponse.redirect(
       new URL(`/login?callbackUrl=${callbackUrl}`, req.url)
@@ -32,20 +32,15 @@ export const middleware = async (req) => {
 
   
 
-  // Only redirect if user has token but wrong role
-  if (isAdminRoute && role && role !== "admin") {
+  
+  if ((isAdminRoute || isEmployeeRoute) && role && role !== "admin") {
     const callbackUrl = encodeURIComponent(path);
     return NextResponse.redirect(
       new URL(`/login?callbackUrl=${callbackUrl}`, req.url)
     );
   }
 
-  if (isEmployeeRoute && role && role !== "employee") {
-    const callbackUrl = encodeURIComponent(path);
-    return NextResponse.redirect(
-      new URL(`/login?callbackUrl=${callbackUrl}`, req.url)
-    );
-  }
+ 
 
   return NextResponse.next();
 };
