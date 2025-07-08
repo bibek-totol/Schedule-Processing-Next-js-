@@ -40,7 +40,12 @@ export const middleware = async (req) => {
     );
   }
 
- 
+  if (isEmployeeRoute && role && role !== "employee") {
+    const callbackUrl = encodeURIComponent(path);
+    return NextResponse.redirect(
+      new URL(`/login?callbackUrl=${callbackUrl}`, req.url)
+    );
+  }
 
   return NextResponse.next();
 };

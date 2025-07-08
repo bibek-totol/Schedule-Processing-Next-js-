@@ -225,15 +225,33 @@ const Navbar =  () => {
               )
             }
             
-           
+
+
+
+
+           {
+            ( session?.user?.role === "admin") ? (
+              
             <li>
               <Link
-                href="/panel"
-                className={`text-white hover:text-blue-500 transition-colors ${pathname === "/panel" ? "bg-teal-500 px-3 py-2 rounded-md " : "px-2 py-2"}`}
+                href="/panel/home"
+                className={`text-white hover:text-blue-500 transition-colors ${pathname === "/panel/home" ? "bg-teal-500 px-3 py-2 rounded-md " : "px-2 py-2"}`}
               >
-                Dashboard
+                 Dashboard
               </Link>
             </li>
+            ):(
+              <li>
+              <Link
+                href="/employeepanel/home"
+                className={`text-white hover:text-blue-500 transition-colors ${pathname === "/employeepanel/home" ? "bg-teal-500 px-3 py-2 rounded-md " : "px-2 py-2"}`}
+              >
+                 Dashboard
+              </Link>
+            </li>
+            )
+           }
+            
 
             <li>
               <Link

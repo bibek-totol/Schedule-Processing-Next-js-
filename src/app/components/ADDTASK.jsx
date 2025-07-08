@@ -19,7 +19,7 @@ export default function ADDTASK() {
     transcript,
   } = useVoiceToText();
 
-  // Update textarea value when voice transcript is updated
+ 
   useEffect(() => {
     if (!isListening && transcript && taskRef.current) {
       taskRef.current.value = transcript;
